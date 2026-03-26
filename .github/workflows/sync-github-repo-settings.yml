@@ -1,6 +1,6 @@
 name: sync-github-repo-settings
 
-on:
+"on":
   schedule:
     - cron: '0 5 * * *'
   push:
@@ -71,7 +71,7 @@ jobs:
 
       - name: Create GitHub App token
         id: app-token
-        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859  #v3.0.0
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859  # v3.0.0
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
@@ -99,7 +99,11 @@ jobs:
           dependabot-alerts: true
           dependabot-security-updates: true
           dependabot-yml: './.github/dependabot.yml'
-          dry-run: ${{ github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+          dry-run: >-
+            ${{
+              github.event_name != 'workflow_dispatch'
+              || (github.event_name == 'workflow_dispatch' && inputs.dry_run)
+            }}
 
       - name: Fail on scheduled drift
         if: github.event_name == 'schedule'

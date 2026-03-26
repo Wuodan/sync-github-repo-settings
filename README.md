@@ -19,7 +19,7 @@ Managed owners / ignore lists:
 
 Upstream action docs:
 
-- https://github.com/joshjohanning/bulk-github-repo-settings-sync-action
+- [bulk-github-repo-settings-sync-action](https://github.com/joshjohanning/bulk-github-repo-settings-sync-action)
 
 Auth needed in this repo:
 
