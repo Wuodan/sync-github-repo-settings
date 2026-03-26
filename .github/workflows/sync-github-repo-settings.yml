@@ -10,6 +10,14 @@ on:
         required: false
         type: boolean
         default: true
+      owner:
+        description: Optional owner regex filter
+        required: false
+        type: string
+      repo:
+        description: Optional repo regex filter (matches repo name and owner/repo)
+        required: false
+        type: string
 
 jobs:
   sync:
@@ -48,6 +56,8 @@ jobs:
           OWNER: ${{ matrix.owner }}
           OWNER_TYPE: ${{ matrix.owner_type }}
           OWNER_CONFIG_FILE: ${{ matrix.owner_config_file }}
+          OWNER_FILTER: ${{ inputs.owner }}
+          REPO_FILTER: ${{ inputs.repo }}
         run: ./scripts/build-repository-list.sh
 
       - name: Update repository settings

@@ -32,12 +32,22 @@ if [[ "${OWNER_TYPE}" == "org" ]]; then
   api_path="/orgs/${OWNER}/repos?per_page=100&type=all"
 fi
 
+if [[ -n "${OWNER_FILTER:-}" && ! "${OWNER}" =~ ${OWNER_FILTER} ]]; then
+  echo "Owner filter regex: ${OWNER_FILTER}" >&2
+  echo "Owner ${OWNER} does not match; generating empty repository list" >&2
+  printf '%s\n' '{"repos":[]}' > generated-repos.yml
+  cat generated-repos.yml >&2
+  exit 0
+fi
+
 ignored_repos_json="$(
   yq -o=json '.ignore_repos // []' "${OWNER_CONFIG_FILE}"
 )"
 
 echo "Ignored repositories:" >&2
 echo "${ignored_repos_json}" >&2
+echo "Owner filter regex: ${OWNER_FILTER:-<none>}" >&2
+echo "Repository filter regex: ${REPO_FILTER:-<none>}" >&2
 
 curl -fsSL \
   -H "Authorization: Bearer ${GH_TOKEN}" \
@@ -45,6 +55,7 @@ curl -fsSL \
   "https://api.github.com${api_path}" \
 | jq \
     --argjson ignored "${ignored_repos_json}" \
+    --arg repo_filter "${REPO_FILTER:-}" \
     '
     {
         repos: [
@@ -53,6 +64,11 @@ curl -fsSL \
           | select(.archived | not)
           | select(.fork | not)
           | select(($ignored | index($repo.full_name)) | not)
+          | select(
+              ($repo_filter == "")
+              or (.full_name | test($repo_filter))
+              or (.name | test($repo_filter))
+            )
           | { repo: .full_name }
         ]
       }
