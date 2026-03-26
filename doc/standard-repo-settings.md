@@ -1,46 +1,78 @@
 # Standard Repo Settings
 
+This document has two kinds of content:
+
+- `Preference`: the intended GitHub repository standard.
+- `Sync status`: whether that preference is enforced by this repo's automation.
+
 ## General
 
 ### Releases
 
-Enable release immutability Loading: true
+- Preference: Immutable releases enabled.
+- Sync status: Synced by `.github/workflows/sync-github-repo-settings.yml`.
 
 ### Pull Requests
 
-all default, no need to sync
+- Preference: Keep GitHub defaults; no custom standard to enforce.
+- Sync status: Not synced.
 
 ## Advanced Security
 
-- Private vulnerability reporting: Enabled
-- Dependency graph: Enabled
-- Automatic dependency submission: Enabled (standard)
-- Dependabot alerts: Enabled
-- Dependabot rules: 1 rule enabled (Managed by GitHub)
-  - Dismiss low-impact alerts for development-scoped dependencies: enabled
-- Dependabot malware alerts: Enabled
-- Dependabot security updates
-- Grouped security updates
-- Dependabot version updates: each repo same dependabot.yml
+- Preference: Private vulnerability reporting enabled.
+- Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
-### Code scanning
+- Preference: Dependency graph enabled.
+- Sync status: Synced indirectly by `dependabot-alerts`.
 
-- CodeQL analysis: Enabled (Default setup)
-- Copilot Autofix: On (default setting on new repos, no sync)
-- Prevent direct alert dismissals: Off (default setting on new repos, no sync)
+- Preference: Automatic dependency submission enabled.
+- Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
-### Protection rules
+- Preference: Dependabot alerts enabled.
+- Sync status: Synced.
 
-Check runs failure threshold: Whatever GHs defaults are, no need to sync
+- Preference: Dependabot rules enabled.
+  - Dismiss low-impact alerts for development-scoped dependencies enabled.
+- Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
-Secret Protection: Enabled
+- Preference: Dependabot malware alerts enabled.
+- Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
-Push protection: Enabled
+- Preference: Dependabot security updates enabled.
+- Sync status: Synced.
 
-## Code quality
+- Preference: Grouped security updates enabled.
+- Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
-Code quality: Enabled
+- Preference: Dependabot version updates enabled with the same `dependabot.yml` in each repo.
+- Sync status: Synced via shared `.github/dependabot.yml`.
 
-- Runner type: Standard GitHub runner
-- Quality query suites
-- Scan events: all GH defaults
+### Code Scanning
+
+- Preference: CodeQL analysis enabled with default setup.
+- Sync status: Synced.
+
+- Preference: Copilot Autofix on.
+- Sync status: Not synced; left at GitHub/repo default.
+
+- Preference: Prevent direct alert dismissals off.
+- Sync status: Not synced; left at GitHub/repo default.
+
+### Protection Rules
+
+- Preference: Check runs failure threshold left at GitHub defaults.
+- Sync status: Not synced.
+
+- Preference: Secret protection enabled.
+- Sync status: Synced.
+
+- Preference: Push protection enabled.
+- Sync status: Synced.
+
+## Code Quality
+
+- Preference: GitHub code quality enabled.
+- Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
+
+- Preference: Runner type standard GitHub runner, quality query suites, scan events at GitHub defaults.
+- Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
