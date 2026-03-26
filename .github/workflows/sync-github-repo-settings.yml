@@ -32,12 +32,10 @@ jobs:
 
       - name: Build owner matrix
         id: discover
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
-          matrix_json="$(./scripts/build-owner-matrix.sh config/owners)"
+          matrix_json="$(./scripts/build-owner-matrix.sh config/owners '${{ inputs.owner }}')"
           echo "Owner matrix:" >&2
-          echo "${matrix_json}" >&2
+          jq . <<< "${matrix_json}" >&2
           echo "matrix=${matrix_json}" >> "${GITHUB_OUTPUT}"
 
   sync:
@@ -53,21 +51,36 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
 
+      - name: Detect owner
+        id: owner
+        run: |
+          echo "owner=$(basename '${{ matrix.owner_config_file }}' .yml)" >> "${GITHUB_OUTPUT}"
+
+      - name: Detect owner type
+        id: owner-type
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          github_owner_type="$(./scripts/detect-owner-type.sh '${{ steps.owner.outputs.owner }}')"
+          echo "GitHub Owner Type: ${github_owner_type}" >&2
+          owner_type="$(sed -e 's/^User$/user/' -e 's/^Organization$/org/' <<< "${github_owner_type}")"
+          echo "Owner Type: ${owner_type}" >&2
+          echo "owner_type=${owner_type}" >> "${GITHUB_OUTPUT}"
+
       - name: Create GitHub App token
         id: app-token
         uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859  #v3.0.0
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          owner: ${{ matrix.owner }}
+          owner: ${{ steps.owner.outputs.owner }}
 
       - name: Build repository list
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          OWNER: ${{ matrix.owner }}
-          OWNER_TYPE: ${{ matrix.owner_type }}
+          OWNER: ${{ steps.owner.outputs.owner }}
+          OWNER_TYPE: ${{ steps.owner-type.outputs.owner_type }}
           OWNER_CONFIG_FILE: ${{ matrix.owner_config_file }}
-          OWNER_FILTER: ${{ inputs.owner }}
           REPO_FILTER: ${{ inputs.repo }}
         run: ./scripts/build-repository-list.sh
 
