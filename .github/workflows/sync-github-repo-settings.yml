@@ -22,11 +22,14 @@ jobs:
       matrix:
         include:
           - owner: Wuodan
-            repositories_file: repos/Wuodan.yml
+            owner_type: user
+            owner_config_file: config/owners/Wuodan.yml
           - owner: aicage
-            repositories_file: repos/aicage.yml
+            owner_type: org
+            owner_config_file: config/owners/aicage.yml
           - owner: gh-workflow
-            repositories_file: repos/gh-workflow.yml
+            owner_type: org
+            owner_config_file: config/owners/gh-workflow.yml
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
@@ -39,11 +42,19 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: ${{ matrix.owner }}
 
+      - name: Build repository list
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          OWNER: ${{ matrix.owner }}
+          OWNER_TYPE: ${{ matrix.owner_type }}
+          OWNER_CONFIG_FILE: ${{ matrix.owner_config_file }}
+        run: ./scripts/build-repository-list.sh
+
       - name: Update repository settings
         uses: joshjohanning/bulk-github-repo-settings-sync-action@v2
         with:
           github-token: ${{ steps.app-token.outputs.token }}
-          repositories-file: ${{ matrix.repositories_file }}
+          repositories-file: generated-repos.yml
           code-scanning: true
           secret-scanning: true
           secret-scanning-push-protection: true

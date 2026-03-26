@@ -11,11 +11,11 @@ Shared config:
 - [sync-github-repo-settings.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/.github/workflows/sync-github-repo-settings.yml)
 - [dependabot.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/.github/dependabot.yml)
 
-Managed owners / repo lists:
+Managed owners / ignore lists:
 
-- [Wuodan.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/repos/Wuodan.yml)
-- [aicage.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/repos/aicage.yml)
-- [gh-workflow.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/repos/gh-workflow.yml)
+- [Wuodan.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/Wuodan.yml)
+- [aicage.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/aicage.yml)
+- [gh-workflow.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/gh-workflow.yml)
 
 Upstream action docs:
 

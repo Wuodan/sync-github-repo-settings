@@ -1,4 +1,0 @@
-repos:
-  - repo: gh-workflow/action-template
-  - repo: gh-workflow/multiarch-image-publish
-  - repo: gh-workflow/setup-docker-desktop-macos
