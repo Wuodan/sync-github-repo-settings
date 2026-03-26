@@ -1,0 +1,8 @@
+repos:
+  # Active organization repositories.
+  # Archived repos are excluded by default.
+  - repo: aicage/aicage
+  - repo: aicage/aicage-custom-samples
+  - repo: aicage/aicage-image
+  - repo: aicage/aicage-image-base
+  - repo: aicage/aicage-image-util
