@@ -1,6 +1,8 @@
 name: sync-github-repo-settings
 
 on:
+  schedule:
+    - cron: '0 5 * * *'
   push:
     branches: ['main']
   workflow_dispatch:
@@ -85,6 +87,7 @@ jobs:
         run: ./scripts/build-repository-list.sh
 
       - name: Update repository settings
+        id: sync-settings
         uses: joshjohanning/bulk-github-repo-settings-sync-action@v2
         with:
           github-token: ${{ steps.app-token.outputs.token }}
@@ -96,3 +99,16 @@ jobs:
           dependabot-security-updates: true
           dependabot-yml: './.github/dependabot.yml'
           dry-run: ${{ github.event_name != 'workflow_dispatch' || (github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+
+      - name: Fail on scheduled drift
+        if: github.event_name == 'schedule'
+        run: |
+          changed_repositories='${{ steps.sync-settings.outputs.changed-repositories }}'
+          failed_repositories='${{ steps.sync-settings.outputs.failed-repositories }}'
+
+          if (( changed_repositories > 0 || failed_repositories > 0 )); then
+            echo "Scheduled drift detected for ${{ steps.owner.outputs.owner }}" >&2
+            echo "Changed repositories: ${changed_repositories}" >&2
+            echo "Failed repositories: ${failed_repositories}" >&2
+            exit 1
+          fi
