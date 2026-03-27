@@ -17,7 +17,7 @@ dependabot:
     routheon: pip-docker-actions
     llm-aggregator: pip-actions
     extract2md: pip-actions
-    mcp-base64: actions-only
+    mcp-base64: pip-actions
     llm-structured-output-demo: actions-only
     docker-vpn-bridge: docker-only
     ollama_config: docker-only
