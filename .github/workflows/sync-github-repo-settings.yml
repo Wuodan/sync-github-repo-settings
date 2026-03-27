@@ -86,6 +86,11 @@ jobs:
           REPO_FILTER: ${{ inputs.repo }}
         run: ./scripts/build-repository-list.sh
 
+      - name: Count matched repositories
+        id: repository-list
+        run: |
+          echo "matched_repo_count=$(yq '.repos | length' generated-repos.yml)" >> "${GITHUB_OUTPUT}"
+
       - name: Verify all repos configured for Dependabot
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -96,6 +101,7 @@ jobs:
 
       - name: Update repository settings
         id: sync-settings
+        if: steps.repository-list.outputs.matched_repo_count != '0'
         uses: joshjohanning/bulk-github-repo-settings-sync-action@v2
         with:
           github-token: ${{ steps.app-token.outputs.token }}
@@ -113,7 +119,7 @@ jobs:
             }}
 
       - name: Fail on scheduled drift
-        if: github.event_name == 'schedule'
+        if: github.event_name == 'schedule' && steps.repository-list.outputs.matched_repo_count != '0'
         run: |
           changed_repositories='${{ steps.sync-settings.outputs.changed-repositories }}'
           failed_repositories='${{ steps.sync-settings.outputs.failed-repositories }}'
