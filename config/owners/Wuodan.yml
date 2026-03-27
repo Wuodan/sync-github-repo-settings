@@ -2,6 +2,7 @@ ignore_repos: []
 
 dependabot:
   profiles:
+    none: ./config/dependabot/none.yml
     actions-only: ./config/dependabot/actions-only.yml
     pip-only: ./config/dependabot/pip-only.yml
     pip-actions: ./config/dependabot/pip-actions.yml
@@ -25,3 +26,28 @@ dependabot:
     sot_autofish: pip-only
     time-series-prediction: pip-only
     mc-plugin-playground: maven-only
+    adfree-dns-pi-cluster: none
+    cfbaker: none
+    deterministic-zip: none
+    ebuild-test-suite: none
+    fastmcp-ollama: none
+    gentoo-config: none
+    gentoo-overlay: none
+    gentoo-raspberrypi-builder: none
+    htmltranslationextract: none
+    inguma: none
+    LeosMessenger: none
+    LeosProject: none
+    local--usr-local-bin: none
+    localrepo: none
+    local_overlay: none
+    mcp-gitlock: none
+    pentoo-iso-tester: none
+    schreibg: none
+    space-invaders: none
+    SQL-Find-Circular-References: none
+    tensorflow-quickstart: none
+    test: none
+    usialtgr: none
+    usialtgr-no-capslock: none
+    workflow-ready-template: none

@@ -86,6 +86,14 @@ jobs:
           REPO_FILTER: ${{ inputs.repo }}
         run: ./scripts/build-repository-list.sh
 
+      - name: Verify all repos configured for Dependabot
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          OWNER: ${{ steps.owner.outputs.owner }}
+          OWNER_TYPE: ${{ steps.owner-type.outputs.owner_type }}
+          OWNER_CONFIG_FILE: ${{ matrix.owner_config_file }}
+        run: ./scripts/check-dependabot-coverage.sh
+
       - name: Update repository settings
         id: sync-settings
         uses: joshjohanning/bulk-github-repo-settings-sync-action@v2
