@@ -9,13 +9,19 @@ Private config repo for asserting the same GitHub repo settings across:
 Shared config:
 
 - [sync-github-repo-settings.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/.github/workflows/sync-github-repo-settings.yml)
-- [dependabot.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/.github/dependabot.yml)
+- [dependabot profiles](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/dependabot)
 
 Managed owners / ignore lists:
 
 - [Wuodan.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/Wuodan.yml)
 - [aicage.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/aicage.yml)
 - [gh-workflow.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/gh-workflow.yml)
+
+Dependabot behavior:
+
+- Archived repositories are ignored.
+- Forks stay in scope for general settings, but get no synced `dependabot.yml`.
+- Owned repositories only get a synced `dependabot.yml` when they are assigned an explicit profile in the owner config.
 
 Upstream action docs:
 

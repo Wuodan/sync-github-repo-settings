@@ -44,8 +44,9 @@ This document has two kinds of content:
 - Preference: Grouped security updates enabled.
 - Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
-- Preference: Dependabot version updates enabled with the same `dependabot.yml` in each repo.
-- Sync status: Synced via shared `.github/dependabot.yml`.
+- Preference: Dependabot version updates enabled only on repositories that have an explicit matching profile.
+- Sync status: Synced via per-repository `dependabot.yml` assignment from the owner   config. Archived repositories are
+  ignored and forks do not get a synced `dependabot.yml`.
 
 ### Code Scanning
 

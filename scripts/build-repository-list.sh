@@ -36,9 +36,19 @@ fi
 ignored_repos_json="$(
   yq -o=json '.ignore_repos // []' "${OWNER_CONFIG_FILE}"
 )"
+dependabot_profiles_json="$(
+  yq -o=json '.dependabot.profiles // {}' "${OWNER_CONFIG_FILE}"
+)"
+dependabot_repo_profiles_json="$(
+  yq -o=json '.dependabot.repos // {}' "${OWNER_CONFIG_FILE}"
+)"
 
 echo "Ignored repositories:" >&2
 echo "${ignored_repos_json}" >&2
+echo "Dependabot profiles:" >&2
+echo "${dependabot_profiles_json}" >&2
+echo "Dependabot repo assignments:" >&2
+echo "${dependabot_repo_profiles_json}" >&2
 echo "Repository filter regex: ${REPO_FILTER:-<none>}" >&2
 
 page=1
@@ -56,19 +66,34 @@ while true; do
 
   jq -r \
     --argjson ignored "${ignored_repos_json}" \
+    --argjson dependabot_profiles "${dependabot_profiles_json}" \
+    --argjson dependabot_repo_profiles "${dependabot_repo_profiles_json}" \
     --arg repo_filter "${REPO_FILTER:-}" \
     '
+    # Keep archived repos out entirely, then apply explicit ignore and optional regex filters.
     .[]
     | . as $repo
     | select(.archived | not)
-    | select(.fork | not)
     | select(($ignored | index($repo.full_name)) | not)
     | select(
         ($repo_filter == "")
         or (.full_name | test($repo_filter))
         or (.name | test($repo_filter))
       )
+    # Forks remain in scope for general repo settings, but never get dependabot.yml synced.
+    | ((.fork | not) and (($dependabot_repo_profiles[.name] // "") != "")) as $should_sync_dependabot
+    # Resolve the configured profile name to the actual dependabot.yml path.
+    | ($dependabot_repo_profiles[.name] // "") as $dependabot_profile
+    | ($dependabot_profiles[$dependabot_profile] // "") as $dependabot_yml
+    # Emit one repos.yml entry, with an optional per-repo dependabot override.
     | "  - repo: " + .full_name
+      + (
+          if ($should_sync_dependabot and ($dependabot_yml != "")) then
+            "\n    dependabot-yml: " + $dependabot_yml
+          else
+            ""
+          end
+        )
     ' <<< "${page_repos_json}" >> generated-repos.yml
 
   if (( page_repos_count < per_page )); then

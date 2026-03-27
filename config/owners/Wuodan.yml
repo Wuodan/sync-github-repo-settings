@@ -1,1 +1,27 @@
 ignore_repos: []
+
+dependabot:
+  profiles:
+    actions-only: ./config/dependabot/actions-only.yml
+    pip-only: ./config/dependabot/pip-only.yml
+    pip-actions: ./config/dependabot/pip-actions.yml
+    pip-docker-actions: ./config/dependabot/pip-docker-actions.yml
+    docker-only: ./config/dependabot/docker-only.yml
+    maven-only: ./config/dependabot/maven-only.yml
+  repos:
+    sync-github-repo-settings: pip-actions
+    python-repo-template: pip-actions
+    watchpuppy2: pip-actions
+    watchpuppy: pip-docker-actions
+    mindcraft-demo: docker-only
+    routheon: pip-docker-actions
+    llm-aggregator: pip-actions
+    extract2md: pip-actions
+    mcp-base64: actions-only
+    llm-structured-output-demo: actions-only
+    docker-vpn-bridge: docker-only
+    ollama_config: docker-only
+    minecraft-server: docker-only
+    sot_autofish: pip-only
+    time-series-prediction: pip-only
+    mc-plugin-playground: maven-only

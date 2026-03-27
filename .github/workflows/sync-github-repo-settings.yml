@@ -98,7 +98,6 @@ jobs:
           secret-scanning-push-protection: true
           dependabot-alerts: true
           dependabot-security-updates: true
-          dependabot-yml: './.github/dependabot.yml'
           dry-run: >-
             ${{
               github.event_name != 'workflow_dispatch'
