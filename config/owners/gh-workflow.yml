@@ -1,1 +1,9 @@
 ignore_repos: []
+
+dependabot:
+  profiles:
+    pip-actions: ./config/dependabot/pip-actions.yml
+  repos:
+    action-template: pip-actions
+    multiarch-image-publish: pip-actions
+    setup-docker-desktop-macos: pip-actions

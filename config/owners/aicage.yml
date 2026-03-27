@@ -1,1 +1,15 @@
 ignore_repos: []
+
+dependabot:
+  profiles:
+    actions-only: ./config/dependabot/actions-only.yml
+    npm-actions: ./config/dependabot/npm-actions.yml
+    pip-actions: ./config/dependabot/pip-actions.yml
+    pip-docker-actions: ./config/dependabot/pip-docker-actions.yml
+  repos:
+    aicage: pip-actions
+    aicage-custom-samples: actions-only
+    aicage-image: pip-docker-actions
+    aicage-image-base: pip-docker-actions
+    aicage-image-util: pip-docker-actions
+    demo-repository: npm-actions
