@@ -70,10 +70,9 @@ while true; do
     --argjson dependabot_repo_profiles "${dependabot_repo_profiles_json}" \
     --arg repo_filter "${REPO_FILTER:-}" \
     '
-    # Keep archived repos out entirely, then apply explicit ignore and optional regex filters.
+    # Apply explicit ignore and optional regex filters.
     .[]
     | . as $repo
-    | select(.archived | not)
     | select(($ignored | index($repo.full_name)) | not)
     | select(
         ($repo_filter == "")
