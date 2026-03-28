@@ -118,14 +118,14 @@ jobs:
               || (github.event_name == 'workflow_dispatch' && inputs.dry_run)
             }}
 
-      - name: Fail on scheduled drift
-        if: github.event_name == 'schedule' && steps.repository-list.outputs.matched_repo_count != '0'
+      - name: Fail on drift
+        if: steps.repository-list.outputs.matched_repo_count != '0'
         run: |
           changed_repositories='${{ steps.sync-settings.outputs.changed-repositories }}'
           failed_repositories='${{ steps.sync-settings.outputs.failed-repositories }}'
 
           if (( changed_repositories > 0 || failed_repositories > 0 )); then
-            echo "Scheduled drift detected for ${{ steps.owner.outputs.owner }}" >&2
+            echo "Drift detected for ${{ steps.owner.outputs.owner }}" >&2
             echo "Changed repositories: ${changed_repositories}" >&2
             echo "Failed repositories: ${failed_repositories}" >&2
             exit 1
