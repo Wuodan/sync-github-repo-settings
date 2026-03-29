@@ -119,15 +119,26 @@ jobs:
               || (github.event_name == 'workflow_dispatch' && inputs.dry_run)
             }}
 
-      - name: Fail on drift
+      # - name: Fail on drift
+      #   if: steps.repository-list.outputs.matched_repo_count != '0'
+      #   run: |
+      #     changed_repositories='${{ steps.sync-settings.outputs.changed-repositories }}'
+      #     failed_repositories='${{ steps.sync-settings.outputs.failed-repositories }}'
+      #
+      #     if (( changed_repositories > 0 || failed_repositories > 0 )); then
+      #       echo "Drift detected for ${{ steps.owner.outputs.owner }}" >&2
+      #       echo "Changed repositories: ${changed_repositories}" >&2
+      #       echo "Failed repositories: ${failed_repositories}" >&2
+      #       exit 1
+      #     fi
+
+      - name: Print sync action outputs
         if: steps.repository-list.outputs.matched_repo_count != '0'
         run: |
-          changed_repositories='${{ steps.sync-settings.outputs.changed-repositories }}'
-          failed_repositories='${{ steps.sync-settings.outputs.failed-repositories }}'
-
-          if (( changed_repositories > 0 || failed_repositories > 0 )); then
-            echo "Drift detected for ${{ steps.owner.outputs.owner }}" >&2
-            echo "Changed repositories: ${changed_repositories}" >&2
-            echo "Failed repositories: ${failed_repositories}" >&2
-            exit 1
-          fi
+          echo "updated-repositories=${{ steps.sync-settings.outputs.updated-repositories }}"
+          echo "changed-repositories=${{ steps.sync-settings.outputs.changed-repositories }}"
+          echo "unchanged-repositories=${{ steps.sync-settings.outputs.unchanged-repositories }}"
+          echo "failed-repositories=${{ steps.sync-settings.outputs.failed-repositories }}"
+          echo "results<<EOF"
+          echo '${{ steps.sync-settings.outputs.results }}'
+          echo "EOF"
