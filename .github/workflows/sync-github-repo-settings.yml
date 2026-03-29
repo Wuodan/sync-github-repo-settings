@@ -102,7 +102,7 @@ jobs:
       - name: Update repository settings
         id: sync-settings
         if: steps.repository-list.outputs.matched_repo_count != '0'
-        uses: Wuodan/bulk-github-repo-settings-sync-action@v2.0.3-test.4
+        uses: Wuodan/bulk-github-repo-settings-sync-action@v2.0.3-test.5
         # uses: joshjohanning/bulk-github-repo-settings-sync-action@70fd4b1d43d99b4d4772b30360921592fc7adc8a  # v2.0.2
         with:
           github-token: ${{ steps.app-token.outputs.token }}
