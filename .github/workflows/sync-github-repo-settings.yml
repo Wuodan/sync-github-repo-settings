@@ -11,7 +11,7 @@ name: sync-github-repo-settings
         description: Preview only without applying changes
         required: false
         type: boolean
-        default: true
+        default: false
       owner:
         description: Optional owner regex filter
         required: false
@@ -113,24 +113,7 @@ jobs:
           secret-scanning-push-protection: true
           dependabot-alerts: true
           dependabot-security-updates: true
-          dry-run: >-
-            ${{
-              github.event_name != 'workflow_dispatch'
-              || (github.event_name == 'workflow_dispatch' && inputs.dry_run)
-            }}
-
-      # - name: Fail on drift
-      #   if: steps.repository-list.outputs.matched_repo_count != '0'
-      #   run: |
-      #     changed_repositories='${{ steps.sync-settings.outputs.changed-repositories }}'
-      #     failed_repositories='${{ steps.sync-settings.outputs.failed-repositories }}'
-      #
-      #     if (( changed_repositories > 0 || failed_repositories > 0 )); then
-      #       echo "Drift detected for ${{ steps.owner.outputs.owner }}" >&2
-      #       echo "Changed repositories: ${changed_repositories}" >&2
-      #       echo "Failed repositories: ${failed_repositories}" >&2
-      #       exit 1
-      #     fi
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
 
       - name: Print sync action outputs
         if: steps.repository-list.outputs.matched_repo_count != '0'
@@ -140,6 +123,20 @@ jobs:
           echo "unchanged-repositories=${{ steps.sync-settings.outputs.unchanged-repositories }}"
           echo "failed-repositories=${{ steps.sync-settings.outputs.failed-repositories }}"
           echo "warning-repositories=${{ steps.sync-settings.outputs.warning-repositories }}"
-          echo "results<<EOF"
+          echo "::group::results"
           echo '${{ steps.sync-settings.outputs.results }}' | jq
-          echo "EOF"
+          echo "::endgroup::"
+
+
+      - name: Fail on warnings or failures
+        if: steps.repository-list.outputs.matched_repo_count != '0'
+        run: |
+          failed_repositories='${{ steps.sync-settings.outputs.failed-repositories }}'
+          warning_repositories='${{ steps.sync-settings.outputs.warning-repositories }}'
+
+          if (( failed_repositories > 0 || warning_repositories > 0 )); then
+            echo "Sync reported warnings or failures for ${{ steps.owner.outputs.owner }}" >&2
+            echo "Failed repositories: ${failed_repositories}" >&2
+            echo "Warning repositories: ${warning_repositories}" >&2
+            exit 1
+          fi
