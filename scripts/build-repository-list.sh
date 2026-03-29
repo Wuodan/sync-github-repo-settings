@@ -52,7 +52,7 @@ echo "${dependabot_repo_profiles_json}" >&2
 echo "Repository filter regex: ${REPO_FILTER:-<none>}" >&2
 
 page=1
-printf '%s\n' 'repos:' > generated-repos.yml
+printf '%s\n' 'repos:' > generated/generated-repos.yml
 
 while true; do
   page_repos_json="$(
@@ -93,7 +93,7 @@ while true; do
             ""
           end
         )
-    ' <<< "${page_repos_json}" >> generated-repos.yml
+    ' <<< "${page_repos_json}" >> generated/generated-repos.yml
 
   if (( page_repos_count < per_page )); then
     break
@@ -103,4 +103,4 @@ while true; do
 done
 
 echo "Generated repository list:" >&2
-cat generated-repos.yml >&2
+cat generated/generated-repos.yml >&2

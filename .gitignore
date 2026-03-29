@@ -1,6 +1,8 @@
 /.idea
 /.venv*/
 __pycache__/
+/generated/*
+!/generated/.keep
 /artifacts
 dist/
 /node_modules/
