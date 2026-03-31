@@ -19,7 +19,7 @@ Managed owners / ignore lists:
 
 Dependabot behavior:
 
-- Archived repositories are ignored.
+- Archived repositories are ignored (now by `joshjohanning/bulk-github-repo-settings-sync-action`).
 - Forks stay in scope for general settings, but get no synced `dependabot.yml`.
 - Owned repositories only get a synced `dependabot.yml` when they are assigned an explicit profile in the owner config.
 
