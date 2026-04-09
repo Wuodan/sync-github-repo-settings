@@ -29,7 +29,7 @@ This document has two kinds of content:
 - Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
 - Preference: Dependabot alerts enabled.
-- Sync status: Synced.
+- Sync status: Synced, except forks where it is explicitly disabled.
 
 - Preference: Dependabot rules enabled.
   - Dismiss low-impact alerts for development-scoped dependencies enabled.
@@ -39,14 +39,14 @@ This document has two kinds of content:
 - Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
 - Preference: Dependabot security updates enabled.
-- Sync status: Synced.
+- Sync status: Synced, except forks where it is explicitly disabled.
 
 - Preference: Grouped security updates enabled.
 - Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
 - Preference: Dependabot version updates enabled only on repositories that have an explicit matching profile.
 - Sync status: Synced via per-repository `dependabot.yml` assignment from the owner   config. Archived repositories are
-  ignored and forks do not get a synced `dependabot.yml`.
+  ignored and forks do not get a synced `dependabot.yml`, `dependabot-alerts`, or `dependabot-security-updates`.
 
 ### Code Scanning
 

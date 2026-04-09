@@ -79,13 +79,21 @@ while true; do
         or (.full_name | test($repo_filter))
         or (.name | test($repo_filter))
       )
-    # Forks remain in scope for general repo settings, but never get dependabot.yml synced.
+    # Forks remain in scope for general repo settings, but Dependabot stays off for them.
     | ((.fork | not) and (($dependabot_repo_profiles[.name] // "") != "")) as $should_sync_dependabot
     # Resolve the configured profile name to the actual dependabot.yml path.
     | ($dependabot_repo_profiles[.name] // "") as $dependabot_profile
     | ($dependabot_profiles[$dependabot_profile] // "") as $dependabot_yml
-    # Emit one repos.yml entry, with an optional per-repo dependabot override.
+    # Emit one repos.yml entry, with optional per-repo Dependabot overrides.
     | "  - repo: " + .full_name
+      + (
+          if .fork then
+            "\n    dependabot-alerts: false"
+            + "\n    dependabot-security-updates: false"
+          else
+            ""
+          end
+        )
       + (
           if ($should_sync_dependabot and ($dependabot_yml != "")) then
             "\n    dependabot-yml: " + $dependabot_yml
