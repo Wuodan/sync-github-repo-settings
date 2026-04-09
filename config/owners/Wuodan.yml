@@ -14,6 +14,8 @@ dependabot:
     deterministic-zip:
     docker-vpn-bridge: docker-only
     ebuild-test-suite:
+    ensure-immutable-actions-test:
+    ensure-immutable-actions-test-custom-actions:
     extract2md: pip-actions
     fastmcp-ollama:
     gentoo-config:
