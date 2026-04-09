@@ -9,26 +9,12 @@ dependabot:
     docker-only: ./config/dependabot/docker-only.yml
     maven-only: ./config/dependabot/maven-only.yml
   repos:
-    sync-github-repo-settings: pip-actions
-    python-repo-template: pip-actions
-    watchpuppy2: pip-actions
-    watchpuppy: pip-docker-actions
-    mindcraft-demo: docker-only
-    routheon: pip-docker-actions
-    llm-aggregator: pip-actions
-    extract2md: pip-actions
-    mcp-base64: pip-actions
-    llm-structured-output-demo: actions-only
-    docker-vpn-bridge: docker-only
-    ollama_config: docker-only
-    minecraft-server: docker-only
-    sot_autofish: pip-only
-    time-series-prediction: pip-only
-    mc-plugin-playground: maven-only
     adfree-dns-pi-cluster:
     cfbaker:
     deterministic-zip:
+    docker-vpn-bridge: docker-only
     ebuild-test-suite:
+    extract2md: pip-actions
     fastmcp-ollama:
     gentoo-config:
     gentoo-overlay:
@@ -38,16 +24,30 @@ dependabot:
     inguma:
     LeosMessenger:
     LeosProject:
-    local--usr-local-bin:
-    localrepo:
+    llm-aggregator: pip-actions
+    llm-structured-output-demo: actions-only
     local_overlay:
+    localrepo:
+    local--usr-local-bin:
+    mcp-base64: pip-actions
     mcp-gitlock:
+    mc-plugin-playground: maven-only
+    mindcraft-demo: docker-only
+    minecraft-server: docker-only
+    ollama_config: docker-only
     pentoo-iso-tester:
+    python-repo-template: pip-actions
+    routheon: pip-docker-actions
     schreibg:
+    sot_autofish: pip-only
     space-invaders:
     SQL-Find-Circular-References:
+    sync-github-repo-settings: pip-actions
     tensorflow-quickstart:
     test:
+    time-series-prediction: pip-only
     usialtgr:
     usialtgr-no-capslock:
+    watchpuppy2: pip-actions
+    watchpuppy: pip-docker-actions
     workflow-ready-template:
