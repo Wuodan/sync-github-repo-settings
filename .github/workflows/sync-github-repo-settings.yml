@@ -85,8 +85,8 @@ jobs:
 
       - name: Update repository settings
         id: sync-settings
-        # uses: Wuodan/bulk-github-repo-settings-sync-action@d8c7ac754710a11eb770041cbadc11b3cd06126a  # v2.5.2-wuodan.3
-        uses: joshjohanning/bulk-github-repo-settings-sync-action@2d0d3516dbfc9030de7ed8531e7da8f85f6a7f0e  # v2.5.1
+        uses: Wuodan/bulk-github-repo-settings-sync-action@9390e6000b3929cff5dff49e6cfc7bc480481146  # v2.5.2-Wuodan.Fix-all-repos-with-owner
+        # uses: joshjohanning/bulk-github-repo-settings-sync-action@2d0d3516dbfc9030de7ed8531e7da8f85f6a7f0e  # v2.5.1
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           repositories-file: ${{ matrix.owner_config_file }}
