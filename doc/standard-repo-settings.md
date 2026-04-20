@@ -42,10 +42,10 @@ This document has two kinds of content:
 - Sync status: Synced, except forks where it is explicitly disabled.
 
 - Preference: Grouped security updates enabled.
-- Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
+- Sync status: Synced via per-repository `dependabot.yml` assignment from the owner config.
 
 - Preference: Dependabot version updates enabled only on repositories that have an explicit matching profile.
-- Sync status: Synced via per-repository `dependabot.yml` assignment from the owner   config. Archived repositories are
+- Sync status: Synced via per-repository `dependabot.yml` assignment from the owner config. Archived repositories are
   ignored and forks do not get a synced `dependabot.yml`, `dependabot-alerts`, or `dependabot-security-updates`.
 
 ### Code Scanning
