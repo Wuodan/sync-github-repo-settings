@@ -6,8 +6,8 @@ with:
 
 - this repo's workflow configuration in
   [`.github/workflows/sync-github-repo-settings.yml`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/.github/workflows/sync-github-repo-settings.yml)
-- this repo's repository list generation in
-  [`scripts/build-repository-list.sh`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/scripts/build-repository-list.sh)
+- this repo's owner rules configuration in
+  [`config/owners`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners)
 - the local fork of the action in
   [`../bulk-github-repo-settings-sync-action/action.yml`](/home/stefan/development/github/Wuodan/bulk-github-repo-settings-sync-action/action.yml)
   and
@@ -46,18 +46,11 @@ The local action fork supports exactly those security toggles and does not expos
 
 ### Repo configuration gaps
 
-- Forks are still included for general settings, even though the stated target policy is "all repos, forks excluded".
-  Source:
-  [`scripts/build-repository-list.sh:82`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/scripts/build-repository-list.sh:82)
-  through
-  [`scripts/build-repository-list.sh:96`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/scripts/build-repository-list.sh:90)
-  The script only disables Dependabot on forks. It still emits fork repositories into `generated-repos.yml` for all other settings.
-
 - `config/owners/Wuodan.yml` references a missing Dependabot profile name.
   Source:
   [`config/owners/Wuodan.yml:17`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/Wuodan.yml:17)
   The repo `ensure-immutable-actions-test` is assigned `npm-actions`, but `npm-actions` is not defined in `Wuodan.yml` under `dependabot.profiles`.
-  Result: the repository passes the coverage check because the repo name is listed, but `build-repository-list.sh` resolves the profile to an empty string and emits no `dependabot-yml`.
+  Result: the repository passes the coverage check because the repo name is listed, but no valid profile exists to resolve.
 
 - The current Dependabot coverage check only verifies that each non-fork, non-archived repo has a key under `dependabot.repos`.
   Source:
@@ -99,7 +92,7 @@ For `Wuodan/ensure-immutable-actions-test-custom-actions`, the observed differen
 
 ## Recommended Next Changes In This Repo
 
-1. Exclude forks completely in `scripts/build-repository-list.sh` if the desired policy remains "forks excluded".
+1. Exclude forks in the owner rules by using `all: true` plus `fork: false`.
 2. Add profile validation so `dependabot.repos.<repo>` must either be empty by design or reference a key that exists in `dependabot.profiles`.
 3. Fix the invalid `npm-actions` reference in `config/owners/Wuodan.yml`, or add the missing profile there.
 

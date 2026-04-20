@@ -1,3 +1,5 @@
+owner: gh-workflow
+
 ignore_repos: []
 
 dependabot:
@@ -7,3 +9,18 @@ dependabot:
     action-template: pip-actions
     multiarch-image-publish: pip-actions
     setup-docker-desktop-macos: pip-actions
+
+rules:
+  - selector:
+      all: true
+      fork: false
+    settings: {}
+
+  - selector:
+      repos:
+        - action-template
+        - multiarch-image-publish
+        - setup-docker-desktop-macos
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/pip-actions.yml

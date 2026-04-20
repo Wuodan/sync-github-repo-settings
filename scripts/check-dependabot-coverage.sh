@@ -36,9 +36,35 @@ fi
 ignored_repos_json="$(
   yq -o=json '.ignore_repos // []' "${OWNER_CONFIG_FILE}"
 )"
+dependabot_profiles_json="$(
+  yq -o=json '.dependabot.profiles // {}' "${OWNER_CONFIG_FILE}"
+)"
 configured_dependabot_repos_json="$(
   yq -o=json '.dependabot.repos // {} | keys' "${OWNER_CONFIG_FILE}"
 )"
+invalid_profile_assignments_json="$(
+  yq -o=json '
+    .dependabot as $dependabot
+    | ($dependabot.profiles // {}) as $profiles
+    | ($dependabot.repos // {})
+    | to_entries
+    | map(
+        select(
+          (.value // "") != ""
+          and ($profiles[.value] == null)
+        )
+      )
+  ' "${OWNER_CONFIG_FILE}"
+)"
+
+invalid_profile_assignments_count="$(jq 'length' <<< "${invalid_profile_assignments_json}")"
+if (( invalid_profile_assignments_count > 0 )); then
+  echo "Repos with undefined Dependabot profiles in ${OWNER_CONFIG_FILE}:" >&2
+  jq -r '.[] | "  - \(.key): \(.value)"' <<< "${invalid_profile_assignments_json}" >&2
+  echo "Defined Dependabot profiles:" >&2
+  jq -r 'keys[]' <<< "${dependabot_profiles_json}" | sed 's/^/  - /' >&2
+  exit 1
+fi
 
 page=1
 missing_repos_file="$(mktemp)"

@@ -1,8 +1,11 @@
+owner: Wuodan
+
 ignore_repos: []
 
 dependabot:
   profiles:
     actions-only: ./config/dependabot/actions-only.yml
+    npm-actions: ./config/dependabot/npm-actions.yml
     pip-only: ./config/dependabot/pip-only.yml
     pip-actions: ./config/dependabot/pip-actions.yml
     pip-docker-actions: ./config/dependabot/pip-docker-actions.yml
@@ -53,3 +56,69 @@ dependabot:
     watchpuppy2: pip-actions
     watchpuppy: pip-docker-actions
     workflow-ready-template:
+
+rules:
+  - selector:
+      all: true
+      fork: false
+    settings: {}
+
+  - selector:
+      repos:
+        - ensure-immutable-actions-test-custom-actions
+        - llm-structured-output-demo
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/actions-only.yml
+
+  - selector:
+      repos:
+        - ensure-immutable-actions-test
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/npm-actions.yml
+
+  - selector:
+      repos:
+        - sot_autofish
+        - time-series-prediction
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/pip-only.yml
+
+  - selector:
+      repos:
+        - extract2md
+        - llm-aggregator
+        - mcp-base64
+        - python-repo-template
+        - watchpuppy2
+        - sync-github-repo-settings
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/pip-actions.yml
+
+  - selector:
+      repos:
+        - routheon
+        - watchpuppy
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/pip-docker-actions.yml
+
+  - selector:
+      repos:
+        - docker-vpn-bridge
+        - mindcraft-demo
+        - minecraft-server
+        - ollama_config
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/docker-only.yml
+
+  - selector:
+      repos:
+        - mc-plugin-playground
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/maven-only.yml

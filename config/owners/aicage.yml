@@ -1,3 +1,5 @@
+owner: aicage
+
 ignore_repos: []
 
 dependabot:
@@ -13,3 +15,39 @@ dependabot:
     aicage-image-base: pip-docker-actions
     aicage-image-util: pip-docker-actions
     demo-repository: npm-actions
+
+rules:
+  - selector:
+      all: true
+      fork: false
+    settings: {}
+
+  - selector:
+      repos:
+        - aicage-custom-samples
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/actions-only.yml
+
+  - selector:
+      repos:
+        - demo-repository
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/npm-actions.yml
+
+  - selector:
+      repos:
+        - aicage
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/pip-actions.yml
+
+  - selector:
+      repos:
+        - aicage-image
+        - aicage-image-base
+        - aicage-image-util
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/pip-docker-actions.yml

@@ -13,8 +13,8 @@ This is the direct mapping from the GitHub repository settings UI to what this r
 
 - Immutable releases: Synced by workflow input `immutable-releases: true`.
 - Dependency graph: Synced indirectly by `dependabot-alerts`.
-- Dependabot alerts: Synced, except forks where generated repo settings explicitly disable them.
-- Dependabot security updates: Synced, except forks where generated repo settings explicitly disable them.
+- Dependabot alerts: Synced for non-fork repositories selected by the owner rules.
+- Dependabot security updates: Synced for non-fork repositories selected by the owner rules.
 - Dependabot version updates: Synced for repositories with an explicit assigned `dependabot.yml` profile.
 - Grouped security updates: Synced for repositories whose assigned `dependabot.yml` profile defines `groups`.
 - CodeQL default setup: Synced by workflow input `code-scanning: true`.
@@ -25,7 +25,7 @@ This is the direct mapping from the GitHub repository settings UI to what this r
 
 - Dependabot version updates: Only enforced for repositories that receive a synced `dependabot.yml`.
 - Grouped security updates: Only enforced where the synced `dependabot.yml` contains matching `groups`.
-- Dependabot alerts and security updates on forks: Intentionally disabled for forks.
+- Fork repositories: Intentionally excluded by the owner rules.
 
 ### Unsupported by current action
 
@@ -62,7 +62,7 @@ This is the direct mapping from the GitHub repository settings UI to what this r
 - Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
 - Preference: Dependabot alerts enabled.
-- Sync status: Synced, except forks where it is explicitly disabled.
+- Sync status: Synced for non-fork repositories selected by the owner rules.
 
 - Preference: Dependabot rules enabled.
   - Dismiss low-impact alerts for development-scoped dependencies enabled.
@@ -72,14 +72,14 @@ This is the direct mapping from the GitHub repository settings UI to what this r
 - Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
 
 - Preference: Dependabot security updates enabled.
-- Sync status: Synced, except forks where it is explicitly disabled.
+- Sync status: Synced for non-fork repositories selected by the owner rules.
 
 - Preference: Grouped security updates enabled.
 - Sync status: Synced via per-repository `dependabot.yml` assignment from the owner config.
 
 - Preference: Dependabot version updates enabled only on repositories that have an explicit matching profile.
 - Sync status: Synced via per-repository `dependabot.yml` assignment from the owner config. Archived repositories are
-  ignored and forks do not get a synced `dependabot.yml`, `dependabot-alerts`, or `dependabot-security-updates`.
+  ignored by the action, and the owner rules exclude forks entirely.
 
 ### Code Scanning
 

@@ -16,10 +16,6 @@ name: sync-github-repo-settings
         description: Optional owner regex filter
         required: false
         type: string
-      repo:
-        description: Optional repo regex filter (matches repo name and owner/repo)
-        required: false
-        type: string
 
 jobs:
   discover-owners:
@@ -77,20 +73,6 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: ${{ steps.owner.outputs.owner }}
 
-      - name: Build repository list
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          OWNER: ${{ steps.owner.outputs.owner }}
-          OWNER_TYPE: ${{ steps.owner-type.outputs.owner_type }}
-          OWNER_CONFIG_FILE: ${{ matrix.owner_config_file }}
-          REPO_FILTER: ${{ inputs.repo }}
-        run: ./scripts/build-repository-list.sh
-
-      - name: Count matched repositories
-        id: repository-list
-        run: |
-          echo "matched_repo_count=$(yq '.repos | length' generated/generated-repos.yml)" >> "${GITHUB_OUTPUT}"
-
       - name: Verify all repos configured for Dependabot
         id: verify-dependabot
         continue-on-error: true
@@ -103,12 +85,11 @@ jobs:
 
       - name: Update repository settings
         id: sync-settings
-        if: steps.repository-list.outputs.matched_repo_count != '0'
         uses: Wuodan/bulk-github-repo-settings-sync-action@7fbd73825909f5791e917c2908a056a7ccf43b5f  # 2.5.2-wuodan.1
         # uses: joshjohanning/bulk-github-repo-settings-sync-action@70fd4b1d43d99b4d4772b30360921592fc7adc8a  # v2.0.2
         with:
           github-token: ${{ steps.app-token.outputs.token }}
-          repositories-file: generated/generated-repos.yml
+          repositories-file: ${{ matrix.owner_config_file }}
           immutable-releases: true
           code-scanning: true
           secret-scanning: true
@@ -118,7 +99,6 @@ jobs:
           dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
 
       - name: Print sync action outputs
-        if: steps.repository-list.outputs.matched_repo_count != '0'
         run: |
           echo "updated-repositories=${{ steps.sync-settings.outputs.updated-repositories }}"
           echo "changed-repositories=${{ steps.sync-settings.outputs.changed-repositories }}"
@@ -133,7 +113,6 @@ jobs:
       - name: Fail on warnings or failures
         id: fail-on-warnings
         continue-on-error: true
-        if: steps.repository-list.outputs.matched_repo_count != '0'
         run: |
           failed_repositories='${{ steps.sync-settings.outputs.failed-repositories }}'
           warning_repositories='${{ steps.sync-settings.outputs.warning-repositories }}'
