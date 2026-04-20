@@ -12,6 +12,7 @@ This is the direct mapping from the GitHub repository settings UI to what this r
 ### Already enforced
 
 - Immutable releases: Synced by workflow input `immutable-releases: true`.
+- Private vulnerability reporting: Synced by workflow input `private-vulnerability-reporting: true`.
 - Dependency graph: Synced indirectly by `dependabot-alerts`.
 - Dependabot alerts: Synced for non-fork repositories selected by the owner rules.
 - Dependabot security updates: Synced for non-fork repositories selected by the owner rules.
@@ -29,7 +30,6 @@ This is the direct mapping from the GitHub repository settings UI to what this r
 
 ### Unsupported by current action
 
-- Private vulnerability reporting.
 - Automatic dependency submission.
 - Dependabot rules.
 - Dependabot malware alerts.
@@ -53,7 +53,7 @@ This is the direct mapping from the GitHub repository settings UI to what this r
 ## Advanced Security
 
 - Preference: Private vulnerability reporting enabled.
-- Sync status: Unsupported by `joshjohanning/bulk-github-repo-settings-sync-action`.
+- Sync status: Synced by workflow input `private-vulnerability-reporting: true`.
 
 - Preference: Dependency graph enabled.
 - Sync status: Synced indirectly by `dependabot-alerts`.

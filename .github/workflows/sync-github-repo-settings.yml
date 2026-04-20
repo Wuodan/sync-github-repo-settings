@@ -94,6 +94,7 @@ jobs:
           code-scanning: true
           secret-scanning: true
           secret-scanning-push-protection: true
+          private-vulnerability-reporting: true
           dependabot-alerts: true
           dependabot-security-updates: true
           dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
