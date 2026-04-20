@@ -5,6 +5,39 @@ This document has two kinds of content:
 - `Preference`: the intended GitHub repository standard.
 - `Sync status`: whether that preference is enforced by this repo's automation.
 
+## UI Mapping
+
+This is the direct mapping from the GitHub repository settings UI to what this repo currently enforces.
+
+### Already enforced
+
+- Immutable releases: Synced by workflow input `immutable-releases: true`.
+- Dependency graph: Synced indirectly by `dependabot-alerts`.
+- Dependabot alerts: Synced, except forks where generated repo settings explicitly disable them.
+- Dependabot security updates: Synced, except forks where generated repo settings explicitly disable them.
+- Dependabot version updates: Synced for repositories with an explicit assigned `dependabot.yml` profile.
+- Grouped security updates: Synced for repositories whose assigned `dependabot.yml` profile defines `groups`.
+- CodeQL default setup: Synced by workflow input `code-scanning: true`.
+- Secret protection: Synced by workflow input `secret-scanning: true`.
+- Push protection: Synced by workflow input `secret-scanning-push-protection: true`.
+
+### Conditional or partial
+
+- Dependabot version updates: Only enforced for repositories that receive a synced `dependabot.yml`.
+- Grouped security updates: Only enforced where the synced `dependabot.yml` contains matching `groups`.
+- Dependabot alerts and security updates on forks: Intentionally disabled for forks.
+
+### Unsupported by current action
+
+- Private vulnerability reporting.
+- Automatic dependency submission.
+- Dependabot rules.
+- Dependabot malware alerts.
+- Prevent direct alert dismissals for Dependabot alerts.
+- Copilot Autofix.
+- Prevent direct alert dismissals for code scanning alerts.
+- Protection rules check runs failure threshold.
+
 ## General
 
 ### Releases
