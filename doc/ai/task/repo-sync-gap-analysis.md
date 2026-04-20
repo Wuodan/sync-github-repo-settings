@@ -49,10 +49,15 @@ The local action fork supports exactly those security toggles and does not expos
 - `config/owners/Wuodan.yml` references a missing Dependabot profile name.
   Source:
   [`config/owners/Wuodan.yml:17`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/Wuodan.yml:17)
-  The repo `ensure-immutable-actions-test` is assigned `npm-actions`, but `npm-actions` is not defined in `Wuodan.yml` under `dependabot.profiles`.
-  Result: the repository passes the coverage check because the repo name is listed, but no valid profile exists to resolve.
+  The repo `ensure-immutable-actions-test` is assigned `npm-actions`, but
+  `npm-actions` is not defined in `Wuodan.yml` under
+  `dependabot.profiles`.
+  Result: the repository passes the coverage check because the repo name is
+  listed, but no valid profile exists to resolve.
 
 - The current Dependabot coverage check only verifies that each non-fork, non-archived repo has a key under `dependabot.repos`.
+  The current Dependabot coverage check only verifies that each non-fork,
+  non-archived repo has a key under `dependabot.repos`.
   Source:
   [`scripts/check-dependabot-coverage.sh:54`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/scripts/check-dependabot-coverage.sh:54)
   through
@@ -77,7 +82,8 @@ and the security handling code in
 [`src/index.js:1268`](/home/stefan/development/github/Wuodan/bulk-github-repo-settings-sync-action/src/index.js:1268)
 through
 [`src/index.js:1700`](/home/stefan/development/github/Wuodan/bulk-github-repo-settings-sync-action/src/index.js:1700)
-only manages CodeQL default setup, immutable releases, secret scanning, push protection, Dependabot alerts, and Dependabot security updates.
+only manages CodeQL default setup, immutable releases, secret scanning, push
+protection, Dependabot alerts, and Dependabot security updates.
 
 ## Interpretation Of The Example Repo Gap
 
@@ -87,7 +93,9 @@ For `Wuodan/ensure-immutable-actions-test-custom-actions`, the observed differen
 - Automatic dependency submission is disabled because the action cannot sync it.
 - Dependabot malware alerts are disabled because the action cannot sync them.
 - Code quality is absent because the action cannot sync those settings.
-- Grouped security updates and version updates are plausibly correct because the repo is assigned the `actions-only` profile, which defines grouped GitHub Actions updates in
+- Grouped security updates and version updates are plausibly correct because
+  the repo is assigned the `actions-only` profile, which defines grouped GitHub
+  Actions updates in
   [`config/dependabot/actions-only.yml`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/dependabot/actions-only.yml).
 
 ## Recommended Next Changes In This Repo
@@ -98,7 +106,9 @@ For `Wuodan/ensure-immutable-actions-test-custom-actions`, the observed differen
 
 ## Recommended Next Changes In The Action
 
-The remaining mismatches are action capability gaps, not workflow input mistakes. The next investigation should focus on whether GitHub exposes APIs for:
+The remaining mismatches are action capability gaps, not workflow input
+mistakes. The next investigation should focus on whether GitHub exposes APIs
+for:
 
 - private vulnerability reporting
 - automatic dependency submission

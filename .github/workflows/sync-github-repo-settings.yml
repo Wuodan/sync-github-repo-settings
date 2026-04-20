@@ -110,7 +110,6 @@ jobs:
           echo '${{ steps.sync-settings.outputs.results }}' | jq
           echo "::endgroup::"
 
-
       - name: Fail on warnings or failures
         id: fail-on-warnings
         continue-on-error: true

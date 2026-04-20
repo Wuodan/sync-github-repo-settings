@@ -1,29 +1,37 @@
 # Task: Analyze Repo-Sync and Action Capabilities
 
-This repo syncs repo settings by using the action `bulk-github-repo-settings-sync-action` in `.github/workflows/sync-github-repo-settings.yml`.
+This repo syncs repo settings by using the action
+`bulk-github-repo-settings-sync-action` in
+`.github/workflows/sync-github-repo-settings.yml`.
 
-I co-author the action, you can see my local fork in `../bulk-github-repo-settings-sync-action`.
+I co-author the action. You can see my local fork in
+`../bulk-github-repo-settings-sync-action`.
 
-Now I initially manually confifured repo `aicage/aicage` (source repo below) and now looked at target repos like `Wuodan/ensure-immutable-actions-test-custom-actions` and saw
-gaps, the target repos are not totally confiugred as I wanted.
+Now I initially manually confifured repo `aicage/aicage` (source repo below) and
+then looked at target repos like
+`Wuodan/ensure-immutable-actions-test-custom-actions` and saw gaps. The target
+repos are not totally confiugred as I wanted.
 
-So please analyse the gap and the action and then tell me where my config of the action can be imporved or where the action lacks support for settings.
+So please analyse the gap and the action and then tell me where my config of
+the action can be imporved or where the action lacks support for settings.
 
-Then in a second step I will ask you to look at the GitHub API to identify where we could possibly enhance the action.
+Then in a second step I will ask you to look at the GitHub API to identify
+where we could possibly enhance the action.
 
-## source repo `aicage/aicage` manually configured
+## Source repo `aicage/aicage` manually configured
 
-These are the settings I would like to sync to all repos (forks excluded), some depend on dependabot.yml
+These are the settings I would like to sync to all repos (forks excluded). Some
+depend on `dependabot.yml`.
 
-### Advanced Security:
+### Advanced Security
 
 - Private vulnerability reporting: Enabled
 - Dependency graph: Enabled
 - Automatic dependency submission: Enabled
 - Dependabot alerts: Enabled
 - Dependabot rules (1 enabled):
-    - Dismiss low-impact alerts for development-scoped dependencies: Enabled
-    - Dismiss package malware alerts: Disabled
+  - Dismiss low-impact alerts for development-scoped dependencies: Enabled
+  - Dismiss package malware alerts: Disabled
 - Dependabot malware alerts: Enabled
 - Prevent direct alert dismissals: Disabled
 - Dependabot security updates: Enabled
@@ -33,29 +41,30 @@ These are the settings I would like to sync to all repos (forks excluded), some 
 - Copilot Autofix: On
 - Prevent direct alert dismissals: Off
 - Check runs failure threshold:
-    - Security alert severity level: High or higher
-    - Standard alert severity level: Only errors
+  - Security alert severity level: High or higher
+  - Standard alert severity level: Only errors
 - Secret Protection: Secret Protection: Enabled
 - Secret Protection: Push protection: Enabled
 
-### Code quality:
+### Code quality
 
 - Scan settings: Standard GitHub runner
 - Quality query suites: Default
 
-### target repo `Wuodan/ensure-immutable-actions-test-custom-actions` configured by the action
+### Target repo `Wuodan/ensure-immutable-actions-test-custom-actions` configured by the action
 
-And here are the same settings from a target repo where I think all those settings were only set by the action in this sync repo.
+And here are the same settings from a target repo where I think all those
+settings were only set by the action in this sync repo.
 
-### Advanced Security:
+### Advanced Security
 
 - Private vulnerability reporting: Disabled
 - Dependency graph: Enabled
 - Automatic dependency submission: Disabled
 - Dependabot alerts: Enabled
 - Dependabot rules (1 enabled):
-    - Dismiss low-impact alerts for development-scoped dependencies: Enabled
-    - Dismiss package malware alerts: Disabled
+  - Dismiss low-impact alerts for development-scoped dependencies: Enabled
+  - Dismiss package malware alerts: Disabled
 - Dependabot malware alerts: Disabled
 - Prevent direct alert dismissals: ?? (not displayed)
 - Dependabot security updates: Enabled
@@ -65,11 +74,11 @@ And here are the same settings from a target repo where I think all those settin
 - Copilot Autofix: On
 - Prevent direct alert dismissals: ?? (not displayed)
 - Check runs failure threshold:
-    - Security alert severity level: High or higher
-    - Standard alert severity level: Only errors
+  - Security alert severity level: High or higher
+  - Standard alert severity level: Only errors
 - Secret Protection: Secret Protection: Enabled
 - Secret Protection: Push protection: Enabled
 
-### Code quality:
+### Code quality
 
 Entire page not displayed in the settings of this repo.
