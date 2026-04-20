@@ -85,8 +85,8 @@ jobs:
 
       - name: Update repository settings
         id: sync-settings
-        uses: Wuodan/bulk-github-repo-settings-sync-action@d8c7ac754710a11eb770041cbadc11b3cd06126a  # v2.5.2-wuodan.3
-        # uses: joshjohanning/bulk-github-repo-settings-sync-action@70fd4b1d43d99b4d4772b30360921592fc7adc8a  # v2.0.2
+        # uses: Wuodan/bulk-github-repo-settings-sync-action@d8c7ac754710a11eb770041cbadc11b3cd06126a  # v2.5.2-wuodan.3
+        uses: joshjohanning/bulk-github-repo-settings-sync-action@2d0d3516dbfc9030de7ed8531e7da8f85f6a7f0e  # v2.5.1
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           repositories-file: ${{ matrix.owner_config_file }}
@@ -94,7 +94,7 @@ jobs:
           code-scanning: true
           secret-scanning: true
           secret-scanning-push-protection: true
-          private-vulnerability-reporting: true
+          # private-vulnerability-reporting: true
           dependabot-alerts: true
           dependabot-security-updates: true
           dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
