@@ -29,5 +29,5 @@ Upstream action docs:
 
 Auth needed in this repo:
 
-- repository variable `APP_ID`
+- repository variable `APP_CLIENT_ID`
 - repository secret `APP_PRIVATE_KEY`
