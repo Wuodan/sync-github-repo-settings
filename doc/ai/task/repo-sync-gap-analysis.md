@@ -1,13 +1,13 @@
 # Repo Sync Gap Analysis
 
 This analysis compares the desired repository standard from
-[`doc/ai/task/Task_RepoSync-Analysis.md`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/doc/ai/task/Task_RepoSync-Analysis.md)
+[`doc/ai/task/Task_RepoSync-Analysis.md`](doc/ai/task/Task_RepoSync-Analysis.md)
 with:
 
 - this repo's workflow configuration in
-  [`.github/workflows/sync-github-repo-settings.yml`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/.github/workflows/sync-github-repo-settings.yml)
+  [`.github/workflows/sync-github-repo-settings.yml`](.github/workflows/sync-github-repo-settings.yml)
 - this repo's owner rules configuration in
-  [`config/owners`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners)
+  [`config/owners`](config/owners)
 - the local fork of the action in
   [`../bulk-github-repo-settings-sync-action/action.yml`](/home/stefan/development/github/Wuodan/bulk-github-repo-settings-sync-action/action.yml)
   and
@@ -26,7 +26,7 @@ The workflow currently configures only these security-related action inputs:
 - per-repo `dependabot-yml`
 
 Source:
-[`.github/workflows/sync-github-repo-settings.yml`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/.github/workflows/sync-github-repo-settings.yml)
+[`.github/workflows/sync-github-repo-settings.yml`](.github/workflows/sync-github-repo-settings.yml)
 
 The local action fork supports exactly those security toggles and does not expose inputs for the other settings listed below.
 
@@ -48,7 +48,7 @@ The local action fork supports exactly those security toggles and does not expos
 
 - `config/owners/Wuodan.yml` references a missing Dependabot profile name.
   Source:
-  [`config/owners/Wuodan.yml:17`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/Wuodan.yml:17)
+  [`config/owners/Wuodan.yml:17`](config/owners/Wuodan.yml:17)
   The repo `ensure-immutable-actions-test` is assigned `npm-actions`, but
   `npm-actions` is not defined in `Wuodan.yml` under
   `dependabot.profiles`.
@@ -59,9 +59,9 @@ The local action fork supports exactly those security toggles and does not expos
   The current Dependabot coverage check only verifies that each non-fork,
   non-archived repo has a key under `dependabot.repos`.
   Source:
-  [`scripts/check-dependabot-coverage.sh:54`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/scripts/check-dependabot-coverage.sh:54)
+  [`scripts/check-dependabot-coverage.sh:54`](scripts/check-dependabot-coverage.sh:54)
   through
-  [`scripts/check-dependabot-coverage.sh:61`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/scripts/check-dependabot-coverage.sh:61)
+  [`scripts/check-dependabot-coverage.sh:61`](scripts/check-dependabot-coverage.sh:61)
   It does not validate that the assigned profile name exists in `dependabot.profiles`.
 
 ### Unsupported by the current action
@@ -96,7 +96,7 @@ For `Wuodan/ensure-immutable-actions-test-fixtures`, the observed differences li
 - Grouped security updates and version updates are plausibly correct because
   the repo is assigned the `actions-only` profile, which defines grouped GitHub
   Actions updates in
-  [`config/dependabot/actions-only.yml`](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/dependabot/actions-only.yml).
+  [`config/dependabot/actions-only.yml`](config/dependabot/actions-only.yml).
 
 ## Recommended Next Changes In This Repo
 

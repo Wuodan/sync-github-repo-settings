@@ -8,14 +8,14 @@ Private config repo for asserting the same GitHub repo settings across:
 
 Shared config:
 
-- [sync-github-repo-settings.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/.github/workflows/sync-github-repo-settings.yml)
-- [dependabot profiles](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/dependabot)
+- [sync-github-repo-settings.yml](.github/workflows/sync-github-repo-settings.yml)
+- [dependabot profiles](config/dependabot)
 
 Managed owners / ignore lists:
 
-- [Wuodan.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/Wuodan.yml)
-- [aicage.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/aicage.yml)
-- [gh-workflow.yml](/home/stefan/development/github/Wuodan/sync-github-repo-settings/config/owners/gh-workflow.yml)
+- [Wuodan.yml](config/owners/Wuodan.yml)
+- [aicage.yml](config/owners/aicage.yml)
+- [gh-workflow.yml](config/owners/gh-workflow.yml)
 
 Dependabot behavior:
 
