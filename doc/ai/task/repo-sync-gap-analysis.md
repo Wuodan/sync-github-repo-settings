@@ -87,7 +87,7 @@ protection, Dependabot alerts, and Dependabot security updates.
 
 ## Interpretation Of The Example Repo Gap
 
-For `Wuodan/ensure-immutable-actions-test-custom-actions`, the observed differences line up with action support:
+For `Wuodan/ensure-immutable-actions-test-fixtures`, the observed differences line up with action support:
 
 - Private vulnerability reporting is disabled because the action cannot sync it.
 - Automatic dependency submission is disabled because the action cannot sync it.

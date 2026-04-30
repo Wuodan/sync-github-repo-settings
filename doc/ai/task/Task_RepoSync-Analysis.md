@@ -9,7 +9,7 @@ I co-author the action. You can see my local fork in
 
 Now I initially manually confifured repo `aicage/aicage` (source repo below) and
 then looked at target repos like
-`Wuodan/ensure-immutable-actions-test-custom-actions` and saw gaps. The target
+`Wuodan/ensure-immutable-actions-test-fixtures` and saw gaps. The target
 repos are not totally confiugred as I wanted.
 
 So please analyse the gap and the action and then tell me where my config of
@@ -51,7 +51,7 @@ depend on `dependabot.yml`.
 - Scan settings: Standard GitHub runner
 - Quality query suites: Default
 
-### Target repo `Wuodan/ensure-immutable-actions-test-custom-actions` configured by the action
+### Target repo `Wuodan/ensure-immutable-actions-test-fixtures` configured by the action
 
 And here are the same settings from a target repo where I think all those
 settings were only set by the action in this sync repo.

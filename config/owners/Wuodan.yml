@@ -18,7 +18,7 @@ dependabot:
     docker-vpn-bridge: docker-only
     ebuild-test-suite:
     ensure-immutable-actions-test: npm-actions
-    ensure-immutable-actions-test-custom-actions: actions-only
+    ensure-immutable-actions-test-fixtures: actions-only
     extract2md: pip-actions
     fastmcp-ollama:
     gentoo-config:
@@ -65,7 +65,7 @@ rules:
 
   - selector:
       repos:
-        - ensure-immutable-actions-test-custom-actions
+        - ensure-immutable-actions-test-fixtures
         - llm-structured-output-demo
       fork: false
     settings:
