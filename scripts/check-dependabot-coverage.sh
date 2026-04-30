@@ -101,8 +101,18 @@ while true; do
 done
 
 if [[ -s "${missing_repos_file}" ]]; then
-  echo "Repos missing Dependabot profile assignment in ${OWNER_CONFIG_FILE}:" >&2
-  sort "${missing_repos_file}" >&2
+
+  echo "## Dependabot Coverage: ${OWNER}"
+  echo
+  echo "- Config: \`${OWNER_CONFIG_FILE}\`"
+  echo "- Result: \`failure\`"
+  echo
+  echo "Repos missing Dependabot profile assignment in ${OWNER_CONFIG_FILE}:"
+  echo
+  sort "${missing_repos_file}" | sed 's|^|- |'
+  echo
+  echo
+
   exit 1
 fi
 
