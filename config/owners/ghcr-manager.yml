@@ -1,0 +1,22 @@
+owner: ghcr-manager
+
+ignore_repos: []
+
+dependabot:
+  profiles:
+    npm-actions: ./config/dependabot/npm-actions.yml
+  repos:
+    ghcr-untag-action: npm-actions
+
+rules:
+  - selector:
+      all: true
+      fork: false
+    settings: {}
+
+  - selector:
+      repos:
+        - ghcr-untag-action
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/npm-actions.yml
