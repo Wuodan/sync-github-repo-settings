@@ -8,7 +8,6 @@ dependabot:
     pip-actions: ./config/dependabot/pip-actions.yml
   repos:
     action-template: pip-actions
-    ghcr-manager: npm-actions
     multiarch-image-publish: pip-actions
     setup-docker-desktop-macos: pip-actions
 
@@ -17,13 +16,6 @@ rules:
       all: true
       fork: false
     settings: {}
-
-  - selector:
-      repos:
-        - ghcr-manager
-      fork: false
-    settings:
-      dependabot-yml: ./config/dependabot/npm-actions.yml
 
   - selector:
       repos:

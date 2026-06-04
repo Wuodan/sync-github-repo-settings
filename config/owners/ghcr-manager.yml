@@ -6,6 +6,7 @@ dependabot:
   profiles:
     npm-actions: ./config/dependabot/npm-actions.yml
   repos:
+    ghcr-manager: npm-actions
     ghcr-untag-action: npm-actions
 
 rules:
@@ -16,6 +17,7 @@ rules:
 
   - selector:
       repos:
+        - ghcr-manager
         - ghcr-untag-action
       fork: false
     settings:
