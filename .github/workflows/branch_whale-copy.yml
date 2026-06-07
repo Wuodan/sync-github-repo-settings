@@ -1,0 +1,65 @@
+name: "Branch: Whale Copy"
+run-name: Branch Whale Copy aicage/aicage package
+
+"on":
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "17 */6 * * *"
+
+env:
+  SOURCE_DB_ARTIFACT_URL: https://github.com/ghcr-manager/ghcr-manager/actions/runs/27094087086/artifacts/7464720526
+  TARGET_OWNER: wuodan
+  TARGET_PACKAGE: aicage-backup
+
+jobs:
+  whale-copy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    permissions:
+      contents: read
+      actions: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: temp-package-copy/package.json
+
+      - name: Setup Go
+        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
+        with:
+          go-version: "1.24"
+
+      - name: Install dependencies
+        shell: bash
+        run: npm install
+        working-directory: temp-package-copy
+
+      - name: Install crane
+        shell: bash
+        env:
+          GOBIN: ${{ runner.temp }}/bin
+        run: |
+          set -euo pipefail
+          mkdir -p "$GOBIN"
+          go install github.com/google/go-containerregistry/cmd/crane@v0.20.7
+          echo "$GOBIN" >> "$GITHUB_PATH"
+
+      - name: Copy whale package slice
+        shell: bash
+        env:
+          COPY_DELAY_SECONDS: 0
+          GITHUB_TOKEN: ${{ secrets.GH_TEST_PAT }}
+          REGISTRY_USERNAME: ${{ vars.GH_TEST_PAT_USERNAME }}
+          SOURCE_DB_ARTIFACT_URL: ${{ env.SOURCE_DB_ARTIFACT_URL }}
+          TARGET_OWNER: ${{ env.TARGET_OWNER }}
+          TARGET_PACKAGE: ${{ env.TARGET_PACKAGE }}
+        run: |
+          set -euo pipefail
+          crane auth login ghcr.io -u "$REGISTRY_USERNAME" -p "$GITHUB_TOKEN"
+          node temp-package-copy/tools/copy-whale-package.mjs

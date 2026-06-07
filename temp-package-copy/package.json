@@ -1,0 +1,11 @@
+{
+  "name": "temp-package-copy",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.9.0"
+  }
+}
