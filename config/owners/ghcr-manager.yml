@@ -6,6 +6,7 @@ dependabot:
   profiles:
     npm-actions: ./config/dependabot/npm-actions.yml
   repos:
+    ghcr-cleanup-manager: npm-actions
     ghcr-manager: npm-actions
     ghcr-untag-action: npm-actions
 
@@ -17,6 +18,7 @@ rules:
 
   - selector:
       repos:
+        - ghcr-cleanup-manager
         - ghcr-manager
         - ghcr-untag-action
       fork: false
