@@ -4,10 +4,11 @@ ignore_repos: []
 
 dependabot:
   profiles:
+    actions-only: ./config/dependabot/actions-only.yml
     npm-actions: ./config/dependabot/npm-actions.yml
   repos:
     ghcr-cleanup-manager: npm-actions
-    ghcr-manager: npm-actions
+    ghcr-manager: actions-only
     ghcr-untag-action: npm-actions
 
 rules:
@@ -18,8 +19,14 @@ rules:
 
   - selector:
       repos:
-        - ghcr-cleanup-manager
         - ghcr-manager
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/actions-only.yml
+
+  - selector:
+      repos:
+        - ghcr-cleanup-manager
         - ghcr-untag-action
       fork: false
     settings:
