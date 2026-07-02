@@ -13,6 +13,7 @@ dependabot:
   repos:
     adfree-dns-pi-cluster:
     cfbaker:
+    container-host-user: actions-only
     deterministic-zip:
     docker-vpn-bridge: docker-only
     ebuild-test-suite:
@@ -64,6 +65,7 @@ rules:
 
   - selector:
       repos:
+        - container-host-user
         - ensure-immutable-actions-test
         - ensure-immutable-actions-test-fixtures
         - llm-structured-output-demo
