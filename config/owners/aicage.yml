@@ -5,7 +5,6 @@ ignore_repos: []
 dependabot:
   profiles:
     actions-only: ./config/dependabot/actions-only.yml
-    npm-actions: ./config/dependabot/npm-actions.yml
     pip-actions: ./config/dependabot/pip-actions.yml
     pip-docker-actions: ./config/dependabot/pip-docker-actions.yml
   repos:
@@ -14,7 +13,6 @@ dependabot:
     aicage-image: pip-docker-actions
     aicage-image-base: pip-docker-actions
     aicage-image-util: pip-docker-actions
-    demo-repository: npm-actions
 
 rules:
   - selector:
@@ -28,13 +26,6 @@ rules:
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/actions-only.yml
-
-  - selector:
-      repos:
-        - demo-repository
-      fork: false
-    settings:
-      dependabot-yml: ./config/dependabot/npm-actions.yml
 
   - selector:
       repos:
