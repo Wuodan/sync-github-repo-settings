@@ -12,6 +12,8 @@ updates:
       github-actions:
         patterns:
           - "*"
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: "cargo"
     directory: "/"
@@ -24,3 +26,5 @@ updates:
       cargo:
         patterns:
           - "*"
+    cooldown:
+      default-days: 7
