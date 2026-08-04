@@ -41,6 +41,7 @@ dependabot:
     minecraft-server: docker-only
     ollama_config: docker-only
     pentoo-iso-tester:
+    pihole-unbound: actions-only
     python-repo-template: pip-actions
     routheon: pip-docker-actions
     schreibg:
@@ -68,6 +69,7 @@ rules:
         - ensure-immutable-actions-test
         - ensure-immutable-actions-test-fixtures
         - llm-structured-output-demo
+        - pihole-unbound
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/actions-only.yml
