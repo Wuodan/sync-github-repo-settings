@@ -26,7 +26,7 @@ jobs:
     outputs:
       matrix: ${{ steps.discover.outputs.matrix }}
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
       - name: Build owner matrix
         id: discover
@@ -47,7 +47,7 @@ jobs:
       matrix: ${{ fromJson(needs.discover-owners.outputs.matrix) }}
 
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
       - name: Detect owner
         id: owner
@@ -87,7 +87,7 @@ jobs:
       - name: Update repository settings
         id: sync-settings
         # uses: Wuodan/bulk-github-repo-settings-sync-action@750a9c7572d8baff473f79568e7eb3fdc16e1ef3  # Wuodan.main
-        uses: joshjohanning/bulk-github-repo-settings-sync-action@4dbdb50fdadd0e336515a267c24c9a7c21b45b38  # v2.10.3
+        uses: joshjohanning/bulk-github-repo-settings-sync-action@904eddbcb8abdbe583f89d05a19a60fc9371e21d  # v2.10.4
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           repositories-file: ${{ matrix.owner_config_file }}
