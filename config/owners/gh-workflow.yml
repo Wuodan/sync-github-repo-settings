@@ -17,7 +17,8 @@ rules:
   - selector:
       all: true
       fork: false
-    settings: {}
+    settings:
+      rulesets-file: ./config/rulesets/commits-must-be-signed.json
 
   - selector:
       repos:
