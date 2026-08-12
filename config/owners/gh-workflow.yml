@@ -5,7 +5,6 @@ ignore_repos: []
 dependabot:
   profiles:
     actions-only: ./config/dependabot/actions-only.yml
-    npm-actions: ./config/dependabot/npm-actions.yml
     pip-actions: ./config/dependabot/pip-actions.yml
   repos:
     action-template: pip-actions
