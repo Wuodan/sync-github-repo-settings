@@ -9,6 +9,7 @@ dependabot:
   repos:
     action-template: pip-actions
     container-host-user: actions-only
+    image-sbom: actions-only
     multiarch-image-publish: pip-actions
     setup-docker-desktop-macos: pip-actions
 
@@ -22,6 +23,7 @@ rules:
   - selector:
       repos:
         - container-host-user
+        - image-sbom
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/actions-only.yml
