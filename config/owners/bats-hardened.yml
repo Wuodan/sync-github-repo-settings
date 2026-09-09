@@ -1,0 +1,40 @@
+owner: bats-hardened
+
+ignore_repos: []
+
+dependabot:
+  profiles:
+    actions-only: ./config/dependabot/actions-only.yml
+    npm-actions: ./config/dependabot/npm-actions.yml
+  repos:
+    .github: actions-only
+    bats-action: actions-only
+    bats-assert: npm-actions
+    bats-core: npm-actions
+    bats-support: npm-actions
+    bats-detik: actions-only
+
+rules:
+  - selector:
+      all: true
+      fork: true
+    settings:
+      rulesets-file: ./config/rulesets/commits-must-be-signed.json
+
+  - selector:
+      repos:
+        - .github
+        - bats-action
+        - bats-detik
+      fork: true
+    settings:
+      dependabot-yml: ./config/dependabot/actions-only.yml
+
+  - selector:
+      repos:
+        - bats-assert
+        - bats-core
+        - bats-support
+      fork: true
+    settings:
+      dependabot-yml: ./config/dependabot/npm-actions.yml
