@@ -12,5 +12,3 @@ updates:
       maven:
         patterns:
           - "*"
-    cooldown:
-      default-days: 7
