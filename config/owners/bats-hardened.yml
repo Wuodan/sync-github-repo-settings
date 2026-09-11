@@ -9,6 +9,7 @@ dependabot:
     bats-assert: ./config/dependabot/bats-hardened/bats-assert/dependabot.yml
     bats-core: ./config/dependabot/bats-hardened/bats-core/dependabot.yml
     bats-detik: ./config/dependabot/bats-hardened/bats-detik/dependabot.yml
+    bats-file: ./config/dependabot/bats-hardened/bats-detik/dependabot.yml
     bats-support: ./config/dependabot/bats-hardened/bats-support/dependabot.yml
   repos:
     .github: .github
@@ -59,6 +60,13 @@ rules:
       fork: true
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-detik/dependabot.yml
+
+  - selector:
+      repos:
+        - bats-file
+      fork: true
+    settings:
+      dependabot-yml: ./config/dependabot/bats-hardened/bats-file/dependabot.yml
 
   - selector:
       repos:
