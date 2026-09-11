@@ -4,15 +4,19 @@ ignore_repos: []
 
 dependabot:
   profiles:
-    actions-only: ./config/dependabot/actions-only.yml
-    npm-actions: ./config/dependabot/npm-actions.yml
+    .github: ./config/dependabot/bats-hardened/.github/dependabot.yml
+    bats-action: ./config/dependabot/bats-hardened/bats-action/dependabot.yml
+    bats-assert: ./config/dependabot/bats-hardened/bats-assert/dependabot.yml
+    bats-core: ./config/dependabot/bats-hardened/bats-core/dependabot.yml
+    bats-detik: ./config/dependabot/bats-hardened/bats-detik/dependabot.yml
+    bats-support: ./config/dependabot/bats-hardened/bats-support/dependabot.yml
   repos:
-    .github: actions-only
-    bats-action: actions-only
-    bats-assert: npm-actions
-    bats-core: npm-actions
-    bats-support: npm-actions
-    bats-detik: actions-only
+    .github: .github
+    bats-action: bats-action
+    bats-assert: bats-assert
+    bats-core: bats-core
+    bats-detik: bats-detik
+    bats-support: bats-support
 
 rules:
   - selector:
@@ -24,17 +28,41 @@ rules:
   - selector:
       repos:
         - .github
-        - bats-action
-        - bats-detik
       fork: true
     settings:
-      dependabot-yml: ./config/dependabot/actions-only.yml
+      dependabot-yml: ./config/dependabot/bats-hardened/.github/dependabot.yml
+
+  - selector:
+      repos:
+        - bats-action
+      fork: true
+    settings:
+      dependabot-yml: ./config/dependabot/bats-hardened/bats-action/dependabot.yml
 
   - selector:
       repos:
         - bats-assert
+      fork: true
+    settings:
+      dependabot-yml: ./config/dependabot/bats-hardened/bats-assert/dependabot.yml
+
+  - selector:
+      repos:
         - bats-core
+      fork: true
+    settings:
+      dependabot-yml: ./config/dependabot/bats-hardened/bats-core/dependabot.yml
+
+  - selector:
+      repos:
+        - bats-detik
+      fork: true
+    settings:
+      dependabot-yml: ./config/dependabot/bats-hardened/bats-detik/dependabot.yml
+
+  - selector:
+      repos:
         - bats-support
       fork: true
     settings:
-      dependabot-yml: ./config/dependabot/npm-actions.yml
+      dependabot-yml: ./config/dependabot/bats-hardened/bats-support/dependabot.yml
