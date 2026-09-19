@@ -1,0 +1,43 @@
+owner: aicage-dev
+
+ignore_repos: []
+
+dependabot:
+  profiles:
+    actions-only: ./config/dependabot/actions-only.yml
+    pip-actions: ./config/dependabot/pip-actions.yml
+    pip-docker-actions: ./config/dependabot/pip-docker-actions.yml
+  repos:
+    aicage: pip-actions
+    aicage-custom-samples: actions-only
+    aicage-image: pip-docker-actions
+    aicage-image-base: pip-docker-actions
+    aicage-image-util: pip-docker-actions
+    marketing: actions-only
+
+rules:
+  - selector:
+      all: true
+    settings:
+      rulesets-file: ./config/rulesets/commits-must-be-signed.json
+
+  - selector:
+      repos:
+        - aicage-custom-samples
+        - marketing
+    settings:
+      dependabot-yml: ./config/dependabot/actions-only.yml
+
+  - selector:
+      repos:
+        - aicage
+    settings:
+      dependabot-yml: ./config/dependabot/pip-actions.yml
+
+  - selector:
+      repos:
+        - aicage-image
+        - aicage-image-base
+        - aicage-image-util
+    settings:
+      dependabot-yml: ./config/dependabot/pip-docker-actions.yml
