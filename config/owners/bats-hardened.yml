@@ -22,55 +22,47 @@ dependabot:
 rules:
   - selector:
       all: true
-      fork: true
     settings:
       rulesets-file: ./config/rulesets/commits-must-be-signed.json
 
   - selector:
       repos:
         - .github
-      fork: true
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/.github/dependabot.yml
 
   - selector:
       repos:
         - bats-action
-      fork: true
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-action/dependabot.yml
 
   - selector:
       repos:
         - bats-assert
-      fork: true
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-assert/dependabot.yml
 
   - selector:
       repos:
         - bats-core
-      fork: true
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-core/dependabot.yml
 
   - selector:
       repos:
         - bats-detik
-      fork: true
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-detik/dependabot.yml
 
   - selector:
       repos:
         - bats-file
-      fork: true
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-file/dependabot.yml
 
   - selector:
       repos:
         - bats-support
-      fork: true
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-support/dependabot.yml
