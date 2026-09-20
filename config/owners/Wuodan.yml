@@ -25,7 +25,7 @@ dependabot:
     gentoo-overlay:
     gentoo-raspberrypi-builder:
     helens-playmobil-traum--mit-beispiel-inhalt:
-    htmltranslationextract:
+    htmltranslationextract: maven-only
     inguma:
     LeosMessenger:
     LeosProject:
@@ -135,6 +135,7 @@ rules:
 
   - selector:
       repos:
+        - htmltranslationextract
         - mc-plugin-playground
       fork: false
     settings:
