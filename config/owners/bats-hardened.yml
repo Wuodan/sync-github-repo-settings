@@ -20,10 +20,10 @@ dependabot:
     bats-support: bats-support
 
 rules:
-  - selector:
-      all: true
-    settings:
-      rulesets-file: ./config/rulesets/commits-must-be-signed.json
+  # - selector:
+  #     all: true
+  #   settings:
+  #     rulesets-file: ./config/rulesets/commits-must-be-signed.json
 
   - selector:
       repos:
