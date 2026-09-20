@@ -74,6 +74,10 @@ rules:
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/actions-only.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/actions-only.json
+          target: renovate.json
 
   - selector:
       repos:
@@ -82,26 +86,38 @@ rules:
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/pip-only.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/pip-only.json
+          target: renovate.json
 
   - selector:
       repos:
+        - sync-github-repo-settings
         - extract2md
         - llm-aggregator
         - mcp-base64
         - python-repo-template
         - watchpuppy2
-        - sync-github-repo-settings
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/pip-actions.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/pip-actions.json
+          target: renovate.json
 
   - selector:
       repos:
-        - routheon
         - watchpuppy
+        - routheon
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/pip-docker-actions.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/pip-docker-actions.json
+          target: renovate.json
 
   - selector:
       repos:
@@ -112,6 +128,10 @@ rules:
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/docker-only.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/docker-only.json
+          target: renovate.json
 
   - selector:
       repos:
@@ -119,3 +139,7 @@ rules:
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/maven-only.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/maven-only.json
+          target: renovate.json

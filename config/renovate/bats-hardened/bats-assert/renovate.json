@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "forkProcessing": "enabled",
+  "enabledManagers": ["github-actions", "npm"],
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions",
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "matchManagers": ["npm"],
+      "groupName": "npm",
+      "minimumReleaseAge": "3 days"
+    }
+  ]
+}

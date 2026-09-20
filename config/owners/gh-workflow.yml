@@ -27,12 +27,30 @@ rules:
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/actions-only.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/actions-only.json
+          target: renovate.json
 
   - selector:
       repos:
         - action-template
-        - multiarch-image-publish
         - setup-docker-desktop-macos
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/pip-actions.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/pip-actions.json
+          target: renovate.json
+
+  - selector:
+      repos:
+        - multiarch-image-publish
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/pip-actions.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/pip-actions.json
+          target: renovate.json

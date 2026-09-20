@@ -30,39 +30,67 @@ rules:
         - .github
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/.github/dependabot.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/bats-hardened/.github/renovate.json
+          target: renovate.json
 
   - selector:
       repos:
         - bats-action
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-action/dependabot.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/bats-hardened/bats-action/renovate.json
+          target: renovate.json
 
   - selector:
       repos:
         - bats-assert
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-assert/dependabot.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/bats-hardened/bats-assert/renovate.json
+          target: renovate.json
 
   - selector:
       repos:
         - bats-core
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-core/dependabot.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/bats-hardened/bats-core/renovate.json
+          target: renovate.json
 
   - selector:
       repos:
         - bats-detik
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-detik/dependabot.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/bats-hardened/bats-detik/renovate.json
+          target: renovate.json
 
   - selector:
       repos:
         - bats-file
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-file/dependabot.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/bats-hardened/bats-file/renovate.json
+          target: renovate.json
 
   - selector:
       repos:
         - bats-support
     settings:
       dependabot-yml: ./config/dependabot/bats-hardened/bats-support/dependabot.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/bats-hardened/bats-support/renovate.json
+          target: renovate.json
