@@ -27,12 +27,20 @@ rules:
         - marketing
     settings:
       dependabot-yml: ./config/dependabot/actions-only.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/actions-only.json
+          target: renovate.json
 
   - selector:
       repos:
         - aicage
     settings:
       dependabot-yml: ./config/dependabot/pip-actions.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/pip-actions.json
+          target: renovate.json
 
   - selector:
       repos:
@@ -41,3 +49,7 @@ rules:
         - aicage-image-util
     settings:
       dependabot-yml: ./config/dependabot/pip-docker-actions.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/pip-docker-actions.json
+          target: renovate.json
