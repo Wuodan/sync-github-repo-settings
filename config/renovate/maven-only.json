@@ -1,0 +1,12 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": ["maven"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchManagers": ["maven"],
+      "groupName": "maven",
+      "minimumReleaseAge": "3 days"
+    }
+  ]
+}

@@ -24,6 +24,10 @@ rules:
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/actions-only.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/actions-only.json
+          target: renovate.json
 
   - selector:
       repos:
@@ -32,3 +36,7 @@ rules:
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/npm-actions.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/npm-actions.json
+          target: renovate.json
