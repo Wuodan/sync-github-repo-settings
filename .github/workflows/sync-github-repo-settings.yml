@@ -17,6 +17,8 @@ name: sync-github-repo-settings
         required: false
         type: string
 
+permissions: {}
+
 jobs:
   discover-owners:
     runs-on: ubuntu-latest
@@ -32,8 +34,10 @@ jobs:
 
       - name: Build owner matrix
         id: discover
+        env:
+          OWNER_FILTER: ${{ inputs.owner }}
         run: |
-          matrix_json="$(./scripts/build-owner-matrix.sh config/owners '${{ inputs.owner }}')"
+          matrix_json="$(./scripts/build-owner-matrix.sh config/owners "${OWNER_FILTER}")"
           echo "Owner matrix:" >&2
           jq . <<< "${matrix_json}" >&2
           echo "matrix=${matrix_json}" >> "${GITHUB_OUTPUT}"
@@ -55,15 +59,18 @@ jobs:
 
       - name: Detect owner
         id: owner
+        env:
+          OWNER_CONFIG_FILE: ${{ matrix.owner_config_file }}
         run: |
-          echo "owner=$(basename '${{ matrix.owner_config_file }}' .yml)" >> "${GITHUB_OUTPUT}"
+          echo "owner=$(basename "${OWNER_CONFIG_FILE}" .yml)" >> "${GITHUB_OUTPUT}"
 
       - name: Detect owner type
         id: owner-type
         env:
           GH_TOKEN: ${{ github.token }}
+          OWNER: ${{ steps.owner.outputs.owner }}
         run: |
-          github_owner_type="$(./scripts/detect-owner-type.sh '${{ steps.owner.outputs.owner }}')"
+          github_owner_type="$(./scripts/detect-owner-type.sh "${OWNER}")"
           echo "GitHub Owner Type: ${github_owner_type}" >&2
           owner_type="$(sed -e 's/^User$/user/' -e 's/^Organization$/org/' <<< "${github_owner_type}")"
           echo "Owner Type: ${owner_type}" >&2
@@ -75,7 +82,8 @@ jobs:
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          owner: ${{ steps.owner.outputs.owner }}
+          owner: ${{ steps.owner.outputs.owner }}  # zizmor: ignore[github-app] All configured repositories.
+          permission-administration: write
 
       - name: Verify all repos configured for Dependabot
         id: verify-dependabot
@@ -105,25 +113,36 @@ jobs:
           dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
 
       - name: Print sync action outputs
+        env:
+          UPDATED_REPOSITORIES: ${{ steps.sync-settings.outputs.updated-repositories }}
+          CHANGED_REPOSITORIES: ${{ steps.sync-settings.outputs.changed-repositories }}
+          UNCHANGED_REPOSITORIES: ${{ steps.sync-settings.outputs.unchanged-repositories }}
+          FAILED_REPOSITORIES: ${{ steps.sync-settings.outputs.failed-repositories }}
+          WARNING_REPOSITORIES: ${{ steps.sync-settings.outputs.warning-repositories }}
+          RESULTS: ${{ steps.sync-settings.outputs.results }}
         run: |
-          echo "updated-repositories=${{ steps.sync-settings.outputs.updated-repositories }}"
-          echo "changed-repositories=${{ steps.sync-settings.outputs.changed-repositories }}"
-          echo "unchanged-repositories=${{ steps.sync-settings.outputs.unchanged-repositories }}"
-          echo "failed-repositories=${{ steps.sync-settings.outputs.failed-repositories }}"
-          echo "warning-repositories=${{ steps.sync-settings.outputs.warning-repositories }}"
+          echo "updated-repositories=${UPDATED_REPOSITORIES}"
+          echo "changed-repositories=${CHANGED_REPOSITORIES}"
+          echo "unchanged-repositories=${UNCHANGED_REPOSITORIES}"
+          echo "failed-repositories=${FAILED_REPOSITORIES}"
+          echo "warning-repositories=${WARNING_REPOSITORIES}"
           echo "::group::results"
-          echo '${{ steps.sync-settings.outputs.results }}' | jq
+          echo "${RESULTS}" | jq
           echo "::endgroup::"
 
       - name: Fail on warnings or failures
         id: fail-on-warnings
         continue-on-error: true
+        env:
+          FAILED_REPOSITORIES: ${{ steps.sync-settings.outputs.failed-repositories }}
+          WARNING_REPOSITORIES: ${{ steps.sync-settings.outputs.warning-repositories }}
+          OWNER: ${{ steps.owner.outputs.owner }}
         run: |
-          failed_repositories='${{ steps.sync-settings.outputs.failed-repositories }}'
-          warning_repositories='${{ steps.sync-settings.outputs.warning-repositories }}'
+          failed_repositories="${FAILED_REPOSITORIES}"
+          warning_repositories="${WARNING_REPOSITORIES}"
 
           if (( failed_repositories > 0 || warning_repositories > 0 )); then
-            echo "Sync reported warnings or failures for ${{ steps.owner.outputs.owner }}" >&2
+            echo "Sync reported warnings or failures for ${OWNER}" >&2
             echo "Failed repositories: ${failed_repositories}" >&2
             echo "Warning repositories: ${warning_repositories}" >&2
             exit 1
@@ -131,16 +150,20 @@ jobs:
 
       - name: Fail job if any verification step failed
         if: always()
+        env:
+          VERIFY_DEPENDABOT_OUTCOME: ${{ steps.verify-dependabot.outcome }}
+          FAIL_ON_WARNINGS_OUTCOME: ${{ steps.fail-on-warnings.outcome }}
+          OWNER: ${{ steps.owner.outputs.owner }}
         run: |
           failed=0
 
-          if [[ '${{ steps.verify-dependabot.outcome }}' == 'failure' ]]; then
-            echo "'Verify all repos configured for Dependabot' failed for ${{ steps.owner.outputs.owner }}" >&2
+          if [[ "${VERIFY_DEPENDABOT_OUTCOME}" == 'failure' ]]; then
+            echo "'Verify all repos configured for Dependabot' failed for ${OWNER}" >&2
             failed=1
           fi
 
-          if [[ '${{ steps.fail-on-warnings.outcome }}' == 'failure' ]]; then
-            echo "'Fail on warnings or failures' detected warnings or failures for ${{ steps.owner.outputs.owner }}" >&2
+          if [[ "${FAIL_ON_WARNINGS_OUTCOME}" == 'failure' ]]; then
+            echo "'Fail on warnings or failures' detected warnings or failures for ${OWNER}" >&2
             failed=1
           fi
 
