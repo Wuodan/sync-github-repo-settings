@@ -1,0 +1,5 @@
+# Look for sourced files relative to the checked script.
+source-path=SCRIPTDIR
+
+# Allow opening any sourced file, even if it was not specified as input.
+external-sources=true
