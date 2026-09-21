@@ -20,7 +20,7 @@ owner=""
 apply=0
 comment="Closing because Dependabot is disabled for fork repositories."
 
-while (( $# > 0 )); do
+while (($# > 0)); do
   case "$1" in
     --owner)
       owner="${2:-}"
@@ -100,7 +100,7 @@ while IFS=$'\t' read -r repo is_archived; do
     matched_count=$((matched_count + 1))
     echo "  - PR by dependabot: ${pr_url} (${pr_title}) [created: ${pr_created_at}, updated: ${pr_updated_at}]"
 
-    if (( apply )); then
+    if ((apply)); then
       if [[ "${is_archived}" == "true" ]]; then
         skipped_archived_count=$((skipped_archived_count + 1))
         echo "Skipping ${pr_url}: archived repositories are read-only" >&2
@@ -111,12 +111,12 @@ while IFS=$'\t' read -r repo is_archived; do
       closed_count=$((closed_count + 1))
       echo "Closed ${pr_url}" >&2
     fi
-  done <<< "${repo_matches}"
-done <<< "${fork_repos}"
+  done <<<"${repo_matches}"
+done <<<"${fork_repos}"
 
-if (( apply )); then
+if ((apply)); then
   echo "Closed ${closed_count} Dependabot PR(s) across fork repositories for ${owner}"
-  if (( skipped_archived_count > 0 )); then
+  if ((skipped_archived_count > 0)); then
     echo "Skipped ${skipped_archived_count} Dependabot PR(s) in archived fork repositories for ${owner}"
   fi
 else
