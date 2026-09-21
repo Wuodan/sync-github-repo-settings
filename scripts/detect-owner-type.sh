@@ -17,5 +17,5 @@ owner="$1"
 curl -fsSL \
   -H "Authorization: Bearer ${GH_TOKEN}" \
   -H "Accept: application/vnd.github+json" \
-  "https://api.github.com/users/${owner}" \
-| jq -r '.type'
+  "https://api.github.com/users/${owner}" |
+  jq -r '.type'

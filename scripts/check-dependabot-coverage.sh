@@ -43,6 +43,7 @@ configured_dependabot_repos_json="$(
   yq -o=json '.dependabot.repos // {} | keys' "${OWNER_CONFIG_FILE}"
 )"
 invalid_profile_assignments_json="$(
+  # shellcheck disable=SC2016 # $dependabot and $profiles are yq variables.
   yq -o=json '
     .dependabot as $dependabot
     | ($dependabot.profiles // {}) as $profiles
@@ -57,12 +58,12 @@ invalid_profile_assignments_json="$(
   ' "${OWNER_CONFIG_FILE}"
 )"
 
-invalid_profile_assignments_count="$(jq 'length' <<< "${invalid_profile_assignments_json}")"
-if (( invalid_profile_assignments_count > 0 )); then
+invalid_profile_assignments_count="$(jq 'length' <<<"${invalid_profile_assignments_json}")"
+if ((invalid_profile_assignments_count > 0)); then
   echo "Repos with undefined Dependabot profiles in ${OWNER_CONFIG_FILE}:" >&2
-  jq -r '.[] | "  - \(.key): \(.value)"' <<< "${invalid_profile_assignments_json}" >&2
+  jq -r '.[] | "  - \(.key): \(.value)"' <<<"${invalid_profile_assignments_json}" >&2
   echo "Defined Dependabot profiles:" >&2
-  jq -r 'keys[]' <<< "${dependabot_profiles_json}" | sed 's/^/  - /' >&2
+  jq -r 'keys[]' <<<"${dependabot_profiles_json}" | sed 's/^/  - /' >&2
   exit 1
 fi
 
@@ -78,12 +79,12 @@ while true; do
       "https://api.github.com${api_path}&page=${page}"
   )"
 
-  page_repos_count="$(jq 'length' <<< "${page_repos_json}")"
+  page_repos_count="$(jq 'length' <<<"${page_repos_json}")"
 
   jq -r \
-      --argjson ignored "${ignored_repos_json}" \
-      --argjson configured "${configured_dependabot_repos_json}" \
-      '
+    --argjson ignored "${ignored_repos_json}" \
+    --argjson configured "${configured_dependabot_repos_json}" \
+    '
       .[]
       | . as $repo
       | select(.archived | not)
@@ -91,9 +92,9 @@ while true; do
       | select(($ignored | index($repo.full_name)) | not)
       | select(($configured | index($repo.name)) | not)
       | .full_name
-      ' <<< "${page_repos_json}" >> "${missing_repos_file}"
+      ' <<<"${page_repos_json}" >>"${missing_repos_file}"
 
-  if (( page_repos_count < per_page )); then
+  if ((page_repos_count < per_page)); then
     break
   fi
 

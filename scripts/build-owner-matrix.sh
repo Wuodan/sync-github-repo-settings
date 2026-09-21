@@ -27,5 +27,5 @@ while IFS= read -r owner_config_file; do
     '{
       owner_config_file: $owner_config_file
     }'
-done < <(find "${owners_dir}" -maxdepth 1 -type f -name '*.yml' | sort) \
-| jq -cs '{include: .}'
+done < <(find "${owners_dir}" -maxdepth 1 -type f -name '*.yml' | sort) |
+  jq -cs '{include: .}'
