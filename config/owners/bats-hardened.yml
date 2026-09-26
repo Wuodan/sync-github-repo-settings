@@ -18,6 +18,8 @@ dependabot:
     bats-core: bats-core
     bats-detik: bats-detik
     bats-support: bats-support
+    gentoo-tests:
+    homebrew-bats-core:
 
 rules:
   # - selector:

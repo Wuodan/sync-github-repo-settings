@@ -10,8 +10,10 @@ dependabot:
     pip-docker-actions: ./config/dependabot/pip-docker-actions.yml
     docker-only: ./config/dependabot/docker-only.yml
     maven-only: ./config/dependabot/maven-only.yml
+    npm-docker: ./config/dependabot/npm-docker.yml
   repos:
     adfree-dns-pi-cluster:
+    ai-cluster: npm-docker
     cfbaker:
     container-host-user:
     deterministic-zip:
@@ -143,4 +145,15 @@ rules:
       file-sync:
         - name: Renovate configuration
           source: ./config/renovate/maven-only.json
+          target: renovate.json
+
+  - selector:
+      repos:
+        - ai-cluster
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/npm-docker.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/npm-docker.json
           target: renovate.json
