@@ -50,7 +50,7 @@ dependabot:
     sot_autofish: pip-only
     space-invaders:
     SQL-Find-Circular-References:
-    sync-github-repo-settings: pip-actions
+    sync-github-repo-settings: pip-actions-TEST
     tensorflow-quickstart:
     test:
     time-series-prediction: pip-only
@@ -95,7 +95,6 @@ rules:
 
   - selector:
       repos:
-        - sync-github-repo-settings
         - extract2md
         - llm-aggregator
         - mcp-base64
@@ -104,6 +103,17 @@ rules:
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/pip-actions.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/pip-actions.json
+          target: renovate.json
+
+  - selector:
+      repos:
+        - sync-github-repo-settings
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/pip-actions-TEST.yml
       file-sync:
         - name: Renovate configuration
           source: ./config/renovate/pip-actions.json
