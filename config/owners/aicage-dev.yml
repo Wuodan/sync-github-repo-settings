@@ -17,7 +17,13 @@ dependabot:
 
 rules:
   - selector:
-      all: true
+      repos:
+        - aicage
+        - aicage-custom-samples
+        - aicage-image
+        - aicage-image-base
+        - aicage-image-util
+        - marketing
     settings:
       rulesets-file: ./config/rulesets/commits-must-be-signed.json
 
