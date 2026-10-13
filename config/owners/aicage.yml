@@ -19,7 +19,9 @@ rules:
       all: true
       fork: false
     settings:
-      rulesets-file: ./config/rulesets/commits-must-be-signed.json
+      rulesets-file: |
+        ./config/rulesets/commits-must-be-signed.json
+        ./config/rulesets/require-PR-for-default-branch.json
 
   - selector:
       repos:
