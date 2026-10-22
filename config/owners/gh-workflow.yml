@@ -46,6 +46,7 @@ rules:
         - setup-docker-wsl
       fork: false
     settings:
+      rulesets-file: ./config/rulesets/require-PR-for-default-branch.json
       file-sync:
         - name: Renovate configuration
           source: ./config/renovate/gh-workflow/setup-docker-wsl/renovate.json
