@@ -12,6 +12,7 @@ dependabot:
     image-sbom: actions-only
     multiarch-image-publish: pip-actions
     setup-docker-desktop-macos: pip-actions
+    setup-docker-wsl: actions-only
 
 rules:
   - selector:
@@ -24,12 +25,30 @@ rules:
       repos:
         - container-host-user
         - image-sbom
+        - setup-docker-wsl
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/actions-only.yml
+
+  - selector:
+      repos:
+        - container-host-user
+        - image-sbom
+      fork: false
+    settings:
       file-sync:
         - name: Renovate configuration
           source: ./config/renovate/actions-only.json
+          target: renovate.json
+
+  - selector:
+      repos:
+        - setup-docker-wsl
+      fork: false
+    settings:
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/gh-workflow/setup-docker-wsl/renovate.json
           target: renovate.json
 
   - selector:
