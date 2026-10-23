@@ -22,6 +22,7 @@ rules:
       rulesets-file: |
         ./config/rulesets/commits-must-be-signed.json
         ./config/rulesets/require-PR-for-default-branch.json
+        ./config/rulesets/required-status-checks.json
 
   - selector:
       repos:
