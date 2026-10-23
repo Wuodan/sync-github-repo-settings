@@ -21,21 +21,17 @@ rules:
     settings:
       rulesets-file: ./config/rulesets/commits-must-be-signed.json
 
-  - selector:
-      repos:
-        - container-host-user
-        - image-sbom
-        - setup-docker-wsl
-      fork: false
-    settings:
-      dependabot-yml: ./config/dependabot/actions-only.yml
+  # Special repos override the baseline ruleset list
 
   - selector:
       repos:
-        - container-host-user
         - image-sbom
       fork: false
     settings:
+      dependabot-yml: ./config/dependabot/actions-only.yml
+      rulesets-file: |
+        ./config/rulesets/commits-must-be-signed.json
+        ./config/rulesets/require-PR-for-default-branch.json
       file-sync:
         - name: Renovate configuration
           source: ./config/renovate/actions-only.json
@@ -46,27 +42,33 @@ rules:
         - setup-docker-wsl
       fork: false
     settings:
-      rulesets-file: ./config/rulesets/require-PR-for-default-branch.json
+      dependabot-yml: ./config/dependabot/actions-only.yml
+      rulesets-file: |
+        ./config/rulesets/commits-must-be-signed.json
+        ./config/rulesets/require-PR-for-default-branch.json
       file-sync:
         - name: Renovate configuration
           source: ./config/renovate/gh-workflow/setup-docker-wsl/renovate.json
           target: renovate.json
 
+  ## Normal repos
+
   - selector:
       repos:
-        - action-template
-        - setup-docker-desktop-macos
+        - container-host-user
       fork: false
     settings:
-      dependabot-yml: ./config/dependabot/pip-actions.yml
+      dependabot-yml: ./config/dependabot/actions-only.yml
       file-sync:
         - name: Renovate configuration
-          source: ./config/renovate/pip-actions.json
+          source: ./config/renovate/actions-only.json
           target: renovate.json
 
   - selector:
       repos:
+        - action-template
         - multiarch-image-publish
+        - setup-docker-desktop-macos
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/pip-actions.yml
