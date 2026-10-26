@@ -15,7 +15,6 @@ dependabot:
     setup-docker-wsl: actions-only
 
 rules:
-
   - selector:
       all: true
       fork: false
