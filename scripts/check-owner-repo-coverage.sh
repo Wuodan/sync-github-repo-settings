@@ -103,12 +103,12 @@ done
 
 if [[ -s "${missing_repos_file}" ]]; then
 
-  echo "## Dependabot Coverage: ${OWNER}"
+  echo "## Owner repository coverage: ${OWNER}"
   echo
   echo "- Config: \`${OWNER_CONFIG_FILE}\`"
   echo "- Result: \`failure\`"
   echo
-  echo "Repos missing Dependabot profile assignment in ${OWNER_CONFIG_FILE}:"
+  echo "Repos missing owner-config coverage entries in ${OWNER_CONFIG_FILE}:"
   echo
   sort "${missing_repos_file}" | sed 's|^|- |'
   echo
@@ -117,4 +117,4 @@ if [[ -s "${missing_repos_file}" ]]; then
   exit 1
 fi
 
-echo "Dependabot coverage complete for ${OWNER}" >&2
+echo "Owner repository coverage complete for ${OWNER}" >&2

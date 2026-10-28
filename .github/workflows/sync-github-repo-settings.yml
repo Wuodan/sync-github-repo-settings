@@ -91,8 +91,8 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
 
-      - name: Verify all repos configured for Dependabot
-        id: verify-dependabot
+      - name: Verify all repos configured for owner
+        id: verify-owner-repo-coverage
         continue-on-error: true
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -100,7 +100,8 @@ jobs:
           OWNER_TYPE: ${{ steps.owner-type.outputs.owner_type }}
           OWNER_CONFIG_FILE: ${{ matrix.owner_config_file }}
         run: |
-          ./scripts/check-dependabot-coverage.sh >> "${GITHUB_STEP_SUMMARY}"
+          set -o pipefail
+          ./scripts/check-owner-repo-coverage.sh 2>&1 | tee -a "${GITHUB_STEP_SUMMARY}"
 
       - name: Update repository settings
         id: sync-settings
@@ -154,17 +155,17 @@ jobs:
             exit 1
           fi
 
-      - name: Fail job if any verification step failed
+      - name: Fail job if owner coverage or sync checks failed
         if: always()
         env:
-          VERIFY_DEPENDABOT_OUTCOME: ${{ steps.verify-dependabot.outcome }}
+          VERIFY_OWNER_REPO_COVERAGE_OUTCOME: ${{ steps.verify-owner-repo-coverage.outcome }}
           FAIL_ON_WARNINGS_OUTCOME: ${{ steps.fail-on-warnings.outcome }}
           OWNER: ${{ steps.owner.outputs.owner }}
         run: |
           failed=0
 
-          if [[ "${VERIFY_DEPENDABOT_OUTCOME}" == 'failure' ]]; then
-            echo "'Verify all repos configured for Dependabot' failed for ${OWNER}" >&2
+          if [[ "${VERIFY_OWNER_REPO_COVERAGE_OUTCOME}" == 'failure' ]]; then
+            echo "'Verify all repos configured for owner' failed for ${OWNER}" >&2
             failed=1
           fi
 
