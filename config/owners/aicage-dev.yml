@@ -19,7 +19,9 @@ rules:
   - selector:
       all: true
     settings:
-      rulesets-file: ./config/rulesets/commits-must-be-signed.json
+      rulesets-file: |
+        ./config/rulesets/commits-must-be-signed.json
+        ./config/rulesets/required-status-check-except-role-write.json
 
   - selector:
       repos:
