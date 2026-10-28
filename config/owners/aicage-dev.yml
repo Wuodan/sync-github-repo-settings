@@ -20,6 +20,7 @@ rules:
       all: true
     settings:
       rulesets-file: ./config/rulesets/commits-must-be-signed.json
+        ./config/rulesets/required-status-checks.json
 
   - selector:
       repos:
