@@ -5,9 +5,11 @@ ignore_repos: []
 dependabot:
   profiles:
     actions-only: ./config/dependabot/actions-only.yml
+    go-actions: ./config/dependabot/go-actions.yml
     pip-actions: ./config/dependabot/pip-actions.yml
     pip-docker-actions: ./config/dependabot/pip-docker-actions.yml
   repos:
+    acp-wsl: go-actions
     aicage: pip-actions
     aicage-custom-samples: actions-only
     aicage-image: pip-docker-actions
@@ -22,6 +24,16 @@ rules:
       rulesets-file: |
         ./config/rulesets/commits-must-be-signed.json
         ./config/rulesets/required-status-check-except-role-write.json
+
+  - selector:
+      repos:
+        - acp-wsl
+    settings:
+      dependabot-yml: ./config/dependabot/go-actions.yml
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/aicage/acp-wsl/renovate.json
+          target: renovate.json
 
   - selector:
       repos:
