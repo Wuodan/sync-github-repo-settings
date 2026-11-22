@@ -28,14 +28,14 @@ rules:
         - image-sbom
       fork: false
     settings:
-      dependabot-yml: ./config/dependabot/actions-only.yml
+      dependabot-yml: ./config/dependabot/docker-actions.yml
       rulesets-file: |
         ./config/rulesets/commits-must-be-signed.json
         ./config/rulesets/require-PR-for-default-branch.json
         ./config/rulesets/required-status-checks.json
       file-sync:
         - name: Renovate configuration
-          source: ./config/renovate/actions-only.json
+          source: ./config/renovate/docker-actions.json
           target: renovate.json
 
   - selector:
