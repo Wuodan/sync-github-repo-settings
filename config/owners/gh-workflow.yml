@@ -69,7 +69,7 @@ rules:
           source: ./config/renovate/gh-workflow/setup-docker-wsl/renovate.json
           target: renovate.json
 
-  ## Normal repos
+  # Normal repos
 
   - selector:
       repos:

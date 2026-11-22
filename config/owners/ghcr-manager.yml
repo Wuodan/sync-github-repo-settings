@@ -18,6 +18,25 @@ rules:
     settings:
       rulesets-file: ./config/rulesets/commits-must-be-signed.json
 
+  # Special repos override the baseline ruleset list
+
+  - selector:
+      repos:
+        - ghcr-cleanup-manager
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/npm-actions.yml
+      rulesets-file: |
+        ./config/rulesets/commits-must-be-signed.json
+        ./config/rulesets/require-PR-for-default-branch.json
+        ./config/rulesets/required-status-checks.json
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/npm-actions.json
+          target: renovate.json
+
+  # Normal repos
+
   - selector:
       repos:
         - ghcr-manager
@@ -31,7 +50,6 @@ rules:
 
   - selector:
       repos:
-        - ghcr-cleanup-manager
         - ghcr-untag-action
       fork: false
     settings:
