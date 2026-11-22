@@ -41,6 +41,7 @@ rules:
   - selector:
       repos:
         - multiarch-image-publish
+        - setup-docker-desktop-macos
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/pip-actions.yml
@@ -84,7 +85,6 @@ rules:
   - selector:
       repos:
         - action-template
-        - setup-docker-desktop-macos
       fork: false
     settings:
       dependabot-yml: ./config/dependabot/pip-actions.yml
