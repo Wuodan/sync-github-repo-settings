@@ -18,6 +18,7 @@
     "endgroup",
     "fastmcp",
     "gitlock",
+    "gomod",
     "helens",
     "htmltranslationextract",
     "inguma",
@@ -37,11 +38,13 @@
     "routheon",
     "schreibg",
     "shfmt",
+    "skrog",
     "toplevel",
     "traum",
     "usialtgr",
     "venv",
     "watchpuppy",
+    "wslkit",
     "zizmor"
   ]
 }
