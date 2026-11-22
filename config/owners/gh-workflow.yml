@@ -40,6 +40,21 @@ rules:
 
   - selector:
       repos:
+        - multiarch-image-publish
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/pip-actions.yml
+      rulesets-file: |
+        ./config/rulesets/commits-must-be-signed.json
+        ./config/rulesets/require-PR-for-default-branch.json
+        ./config/rulesets/required-status-checks.json
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/pip-actions.json
+          target: renovate.json
+
+  - selector:
+      repos:
         - setup-docker-wsl
       fork: false
     settings:
@@ -69,7 +84,6 @@ rules:
   - selector:
       repos:
         - action-template
-        - multiarch-image-publish
         - setup-docker-desktop-macos
       fork: false
     settings:
