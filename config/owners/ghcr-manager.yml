@@ -35,6 +35,21 @@ rules:
           source: ./config/renovate/npm-docker-actions.json
           target: renovate.json
 
+  - selector:
+      repos:
+        - ghcr-untag-action
+      fork: false
+    settings:
+      dependabot-yml: ./config/dependabot/npm-actions.yml
+      rulesets-file: |
+        ./config/rulesets/commits-must-be-signed.json
+        ./config/rulesets/require-PR-for-default-branch.json
+        ./config/rulesets/required-status-checks.json
+      file-sync:
+        - name: Renovate configuration
+          source: ./config/renovate/npm-actions.json
+          target: renovate.json
+
   # Normal repos
 
   - selector:
@@ -46,15 +61,4 @@ rules:
       file-sync:
         - name: Renovate configuration
           source: ./config/renovate/actions-only.json
-          target: renovate.json
-
-  - selector:
-      repos:
-        - ghcr-untag-action
-      fork: false
-    settings:
-      dependabot-yml: ./config/dependabot/npm-actions.yml
-      file-sync:
-        - name: Renovate configuration
-          source: ./config/renovate/npm-actions.json
           target: renovate.json
